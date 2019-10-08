@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+        <head>
+           <title> Add Client </title>
+           <style type="text/css">
+              .form-style-9{
+              max-width: 900px;
+              background: #FAFAFA;
+              padding: 30px;
+              margin: 50px auto;
+              box-shadow: 1px 1px 25px rgba(0, 0, 0, 0.35);
+              border-radius: 10px;
+              border: 6px solid #305A72;
+              font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+              }
+              .form-style-9 ul{
+              padding:0;
+              margin:0;
+              list-style:none;
+              }
+              .form-style-9 ul li{
+              display: block;
+              margin-bottom: 10px;
+              min-height: 40px;
+              font-size: 20;
+              }
+              .form-style-9 ul li  .field-style{
+              box-sizing: border-box; 
+              -webkit-box-sizing: border-box;
+              -moz-box-sizing: border-box; 
+              padding: 8px;
+              outline: none;
+              border: 1px solid #B0CFE0;
+        
+              }.form-style-9 ul li  .field-style:focus{
+              box-shadow: 0 0 5px #B0CFE0;
+              border:1px solid #B0CFE0;
+              }
+              .form-style-9 ul li .field-split{
+              width: 49%;
+              }
+              .form-style-9 ul li .field-horizontal{
+              width: 24%;
+              margin: 3.1px;
+              margin-inline-start: 0;
+              }
+              .form-style-9 ul li .field-full{
+              width: 100%;
+              }
+              .form-style-9 ul li input.align-left{
+              float:left;
+              }
+              .form-style-9 ul li input.align-right{
+              float:right;
+              }
+              .form-style-9 ul li textarea{
+              width: 100%;
+              height: 100px;
+              }
+              .form-style-9 ul li input[type="button"], 
+              .form-style-9 ul li input[type="submit"] {
+              -moz-box-shadow: inset 0px 1px 0px 0px #3985B1;
+              -webkit-box-shadow: inset 0px 1px 0px 0px #3985B1;
+              box-shadow: inset 0px 1px 0px 0px #3985B1;
+              background-color: #216288;
+              border: 1px solid #17445E;
+              display: inline-block;
+              cursor: pointer;
+              color: #FFFFFF;
+              padding: 8px 18px;
+              text-decoration: none;
+              font: 12px Arial, Helvetica, sans-serif;
+              }
+              .form-style-9 ul li input[type="button"]:hover, 
+              .form-style-9 ul li input[type="submit"]:hover {
+              background: linear-gradient(to bottom, #2D77A2 5%, #337DA8 100%);
+              background-color: #28739E;
+              }
+              h2{
+              text-align: center;
+              }
+              textarea {
+              width: 300px;
+              height: 5em;
+              }
+              input:-webkit-autofill {
+              -webkit-box-shadow: 0 0 0px 1000px white inset;
+              }
+              input, select, textarea {
+              font-size: 80%;
+              }
+              /* The switch - the box around the slider */
+              .switch {
+              position: relative;
+              display: inline-block;
+              width: 100px;
+              height: 34px;
+              }
+              /* Hide default HTML checkbox */
+              .switch input {
+              opacity: 0;
+              width: 0;
+              height: 0;
+              }
+              /* The slider */
+              .slider {
+              position: absolute;
+              cursor: pointer;
+              top: 0;
+              left: 0;
+              right: 0;
+              bottom: 0;
+              background-color: #ccc;
+              -webkit-transition: .4s;
+              transition: .4s;
+              }
+              .slider:before {
+              position: absolute;
+              content: "";
+              height: 26px;
+              width: 26px;
+              left: 4px;
+              bottom: 4px;
+              background-color: white;
+              -webkit-transition: .4s;
+              transition: .4s;
+              }
+              input:checked + .slider {
+              background-color: #2196F3;
+              }
+              input:focus + .slider {
+              box-shadow: 0 0 1px #2196F3;
+              }
+              input:checked + .slider:before {
+              -webkit-transform: translateX(67px);
+              -ms-transform: translateX(67px);
+              transform: translateX(67px);
+              }
+              /* Rounded sliders */
+              .slider.round {
+              border-radius: 34px;
+              }
+              .slider.round:before {
+              border-radius: 50%;
+              }
+              #centerButton {
+              text-align: center;
+              }
+           </style>
+           <!-- Including Custom css -->
+           <!--<link rel="stylesheet" type="text/css" href="style.css"> -->
+           <script language="JavaScript" type="text/javascript">
+              function checkform (form)
+              {
+                  /* isEmpty() returns true and alerts the user if they left a field empty */
+                  function isEmpty (fix, called)
+                  {
+                      if (fix=="")
+                      {
+                      alert("Please enter " + called);
+                      return true;
+                      } else {
+                      return false;
+                      }
+                  }
+              
+                  /* charCheck() returns false and alerts the user if they used any non-alphanumeric characters */
+                  function charCheck(fix)
+                  {
+                      var validchars = '@-_.0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                      if(isValid(fix,validchars))
+                      {
+                          return true;
+                      } else {
+                          alert("Please use only letters or numbers in this field");
+                          return false;
+                      }
+                  }
+              
+                  /* isValid is used by the charCheck() function to look through each 'validchars' one at a time */
+                  function isValid(string,validchars)
+                  {
+                      for (var i=0; i< string.length; i++)
+                      {
+                      if (validchars.indexOf(string.charAt(i)) === -1) {return false;}
+                      }
+                      return true;
+                  }
+              
+                  // Check for empty fields
+                  if (is_empty (form.t_email.value,"your email address")) { form.t_email.focus();  return false;}
+                  if (is_empty (form.t_password.value,"your password")) { form.t_password.focus();  return false;}
+              
+                  //check for weird chars
+                  if (charCheck(form.t_email.value)===false) {form.t_email.focus(); return false;}
+                  if (charCheck(form.t_password.value)===false) {form.t_password.focus(); return false;}
+              
+                  return true ;
+              }
+               
+           </script>
+        </head>
+        <body>
+           <br>
+           <br>
+           <br>
+           <!-- Action attribute is the route on backend. Method is POST -->
+           <form class="form-style-9" >
+              <ul>
+                 <h2>Clients Information</h2>
+                 <li>
+                    <input type="text" name="companyName" class="field-style field-full align-none" placeholder="Enter Company Name" />
+                 </li>
+                 <li>
+                    <input type="text" name="ClentName" class="field-style field-full align-none" placeholder="Enter Client's Name" />
+                 </li>
+                 <li>
+                    <input type="text" name="email" class="field-style field-full align-none" placeholder="Enter an Email" />
+                 </li>
+                 <li>
+                    <input type="tel" name="phone" class="field-style field-split align-left" placeholder="Enter Phone #" />
+                    <input type="text" name="phoneType" class="field-style field-split align-right" placeholder="Enter Phone Type" />
+                 </li>
+                 <li>
+                    <input type="text" name="address" class="field-style field-split align-left" placeholder="Enter address" />
+                    <input type="text" name="address2" class="field-style field-split align-right" placeholder="Enter address 2" />
+                 </li>
+                 <li>
+                    <input type="text" name="city" display="inline" class="field-style field-horizontal align-none" placeholder="Enter City" />
+                    <input type="text" name="state" display="inline" class="field-style field-horizontal align-none" placeholder="Enter State" />
+                    <input type="text" name="zip" display="inline" class="field-style field-horizontal align-none" placeholder="Enter Zip" />
+                    <input type="text" name="county" class="field-style field-horizontal align-none" placeholder="Enter Country" />
+                 </li>
+                 <li>
+                    <input type="text" name="startDate" class="field-style field-full align-none" placeholder="Start Date" />
+                 </li>
+                 <li>
+                    <p>Active Status</p>
+                    <label class="switch">
+                    <input type="checkbox" name="active" id="active" placeholder="Active status" > 
+                    <span class="slider round"></span>
+                    </label>
+                 </li>
+                 <li>
+                    <div id= "centerButton">
+                       <input type="submit" value="Add Client" item-width="100px" style="width:100px"/>
+                 </li>
+              </ul>
+              </div>
+           </form>
+        </body>
+     </html>
+
