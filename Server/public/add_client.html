@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-
   <head>
-
      <meta charset="UTF-8">
 
+<!-- Temporary css -->
      <title> Add Client </title>
      <style>
         .add_client-style{
@@ -185,144 +184,73 @@
             -webkit-box-shadow: 0 0 0 1000px white inset !important;
             -webkit-text-fill-color: #020202 !important;
             }
-
       </style>
-      <!-- Including Custom css -->
-      <!--<link rel="stylesheet" type="text/css" href="style.css"> -->
-      <script>
+      
+        <script>
+          function SetDate(){
+   	      var date = new Date();
+        	var day = date.getDate();
+        	var month = date.getMonth() + 1;
+        	var year = date.getFullYear();
+        	if (month < 10) month = "0" + month;
+        	if (day < 10) day = "0" + day;
+        	var today = year + "-" + month + "-" + day;
+        	document.getElementById('startDate').value = today;
+          }
 
-function SetDate()
-{
-var date = new Date();
-var day = date.getDate();
-var month = date.getMonth() + 1;
-var year = date.getFullYear();
-if (month < 10) month = "0" + month;
-if (day < 10) day = "0" + day;
-var today = year + "-" + month + "-" + day;
+          function myToggleFunction() {
+          var checkBox = document.getElementById("toggle");
+   	      if (checkBox.checked == true) {
+   		    text.style.display = "block";
+   		    document.getElementById("toggle").value = "true";
+   	      } else {
+   		    text.style.display = "none";
+   		    document.getElementById("toggle").value = "false";
+          }
+          }
+        </script>
+</head>
+<body>
+	<br>
+	<br>
+	<br>
+	<!-- Action attribute is the route on backend. Method is POST -->
+    <form action='/add_client' class="add_client-style" method='post'>
+		<p id="add_client_title">Create Client</p>
+		<ul>
+            <li><input class="field-style field-full align-none" id="company" name="company" placeholder="Enter Company Name" type="text"></li>
+            
+            <li><input class="field-style field-full align-none" id="name" name="name" placeholder="Enter Client's Name" type="text"></li>
+            
+            <li><input class="field-style field-full align-none" id="email" name="email" placeholder="Enter an Email" type="email"></li>
+            
+            <li><input class="field-style field-split align-left" id="phone" name="phone" placeholder="Enter Phone #" type="tel"> 
 
-document.getElementById('startDate').value = today;
-}
+                <input class="field-style field-split align-right" id="phoneType" name="phoneType" placeholder="Enter Phone Type" type="text"></li>
 
-             function myFunction() {
-             var checkBox = document.getElementById("active");
-             var text = document.getElementById("text");
-             if (checkBox.checked == true){
-              text.style.display = "block";
-             } else {
-               text.style.display = "none";
-            }
-            }
+            <li><input class="field-style field-split align-left" id="addressOne" name="addressOne" placeholder="Enter address" type="text"> 
 
-              function checkform (form)
-              {
-                  /* isEmpty() returns true and alerts the user if they left a field empty */
-                  function isEmpty (fix, called)
-                  {
-                      if (fix=="")
-                      {
-                      alert("Please enter " + called);
-                      return true;
-                      } else {
-                      return false;
-                      }
-                  }
+                <input class="field-style field-split align-right" id="addressTwo" name="addressTwo" placeholder="Enter address 2" type="text"></li>
 
-                  /* charCheck() returns false and alerts the user if they used any non-alphanumeric characters */
-                  function charCheck(fix)
-                  {
-                      var validchars = '@-_.0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-                      if(isValid(fix,validchars))
-                      {
-                          return true;
-                      } else {
-                          alert("Please use only letters or numbers in this field");
-                          return false;
-                      }
-                  }
+            <li><input class="field-style field-horizontal align-none" id="city" name="city" placeholder="Enter City" type="text"> 
 
-                  /* isValid is used by the charCheck() function to look through each 'validchars' one at a time */
-                  function isValid(string,validchars)
-                  {
-                      for (var i=0; i< string.length; i++)
-                      {
-                      if (validchars.indexOf(string.charAt(i)) === -1) {return false;}
-                      }
-                      return true;
-                  }
+                <input class="field-style field-horizontal align-none" id="state" name="state" placeholder="Enter State" type="text"> 
 
-                  // Check for empty fields
-                  if (is_empty (form.t_email.value,"your email address")) { form.t_email.focus();  return false;}
-                  if (is_empty (form.t_password.value,"your password")) { form.t_password.focus();  return false;}
+                <input class="field-style field-horizontal align-none" id="zip" name="zip" placeholder="Enter Zip" type="text"> 
 
-                  //check for weird chars
-                  if (charCheck(form.t_email.value)===false) {form.t_email.focus(); return false;}
-                  if (charCheck(form.t_password.value)===false) {form.t_password.focus(); return false;}
+                <input class="field-style field-horizontal align-none" id="county" name="county" placeholder="Enter County" type="text"></li>
 
-                  return true ;
-              }
+            <li><input class="field-style field-full align-none" id="startDate" name="startDate" onblur="(this.value == '' ? this.type='text' : this.type='date')" onfocus="(this.type='date')" placeholder="Enter Start Date" type="text"></li>
+            
+            <li>Active Status &nbsp; <label class="switch"><input id="toggle" name="toggle" onclick="myToggleFunction()" type="checkbox"> <span class="slider round"></span></label></li>
+            
+			<li><input style="width:110px" type="submit" value="Save"> <input style="width:110px" type="button" value="Undo"> <input style="width:110px" type="button" value="Cancel"></li>
+		</ul>
+	</form>
+</body>
+</html>
 
+        
+        
 
-
-           </script>
-        </head>
-
-       <!-- <body onload="SetDate();"> -->
-           <br>
-           <br>
-           <br>
-           <!-- Action attribute is the route on backend. Method is POST -->
-           <form class="add_client-style" action='/add_client' method='post' onsubmit='return checkform(this);'>
-
-                <p id= "add_client_title">Create Client</p>
-
-              <ul>
-                 <li>
-                    <input type="text" name="company" id="company" class="field-style field-full align-none" placeholder="Enter Company Name" />
-                 </li>
-                 <li>
-                    <input type="text" name="name" id="name" class="field-style field-full align-none" placeholder="Enter Client's Name" />
-                 </li>
-                 <li>
-                    <input type="text" name="email" id="email" class="field-style field-full align-none" placeholder="Enter an Email" />
-                 </li>
-                 <li>
-                    <input type="tel" name="phone" id="phone" class="field-style field-split align-left" placeholder="Enter Phone #" />
-                    <input type="text" name="phoneType" id="phoneType" class="field-style field-split align-right" placeholder="Enter Phone Type" />
-                 </li>
-                 <li>
-                    <input type="text" name="addressOne" id="addressOne" class="field-style field-split align-left" placeholder="Enter address" />
-                    <input type="text" name="addressTwo" id="addressTwo" class="field-style field-split align-right" placeholder="Enter address 2" />
-                 </li>
-                 <li>
-                    <input type="text" name="city"  id="city" class="field-style field-horizontal align-none" placeholder="Enter City" />
-                    <input type="text" name="state"  id = "state" class="field-style field-horizontal align-none" placeholder="Enter State" />
-                    <input type="text" name="zip"  id="zip" class="field-style field-horizontal align-none" placeholder="Enter Zip" />
-                    <input type="text" name="county" id="county" class="field-style field-horizontal align-none" placeholder="Enter County" />
-                 </li>
-                 <li>
-                    <input type="text" id="startDate" onfocus="(this.type='date')" onblur="(this.value == '' ? this.type='text' : this.type='date')" name="startDate"  class="field-style field-full align-none"  placeholder="Enter Start Date" />
-                 </li>
-
-                 <li>
-                     Active Status &nbsp;
-                    <label class="switch">
-                    <input type="checkbox" onclick="myFunction()" name="active" id="active" />
-                    <span class="slider round"></span>
-                    </label>
-                    <!--<p id="text" style="display:none">Client is set to Active!</p>   -->
-                 </li>
-                 <li>
-                    <div id= "centerButtons">
-                       <input type="submit" value="Save"   style="width:110px">
-                       <input type="submit" value="Undo" style="width:110px">
-
-                       <input type="submit" value="Cancel" style="width:110px">
-
-                    </div>
-                 </li>
-              </ul>
-
-           </form>
-        </body>
-     </html>
+        
