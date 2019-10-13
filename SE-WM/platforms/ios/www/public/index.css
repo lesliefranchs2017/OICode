@@ -93,7 +93,7 @@ option {
 
 .materials input[type=text] {
     display: inline-block;
-    width: 70%;
+    width: 60%;
 }
 
 .materials input[type=button] {

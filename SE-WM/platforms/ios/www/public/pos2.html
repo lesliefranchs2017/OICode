@@ -33,7 +33,7 @@
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">-->
-        <link rel="stylesheet" type="text/css" href="css/index.css">
+        <link rel="stylesheet" type="text/css" href="index.css">
         <title>Ticket Taker Beta</title>
     </head>
     <body>
@@ -55,6 +55,7 @@
                 <input type='button' class='btn' id='s5' value="Trucking Services" onclick='changeColor(this)'>
                 <input type='button' class='btn' id='s6' value="Waste Delivery Service" onclick='changeColor(this)'>
                 <input type='button' class='btn' id='s7' value="Sample Trucking Company" onclick='changeColor(this)'>
+                <input type='text' id='truck' name='truck' style='visibility: hidden;'>
                 <br><br><button class='next' id='next' onclick='checkSelected()'><span>Next    </span></button>
             </form>
             <p id='testing'></p>
@@ -103,6 +104,7 @@
                     document.getElementById(num).style.backgroundColor = "#0066ff";
                 }
                 elmnt.style.backgroundColor = "#33cc33";
+                document.getElementById('truck').value = elmnt.value;
                 document.getElementById('next').style.backgroundColor = "#33cc33";
             };
 
@@ -123,7 +125,7 @@
                     alert("You must select a trucking company before moving on.");
                     document.getElementById('form').action = '';
                 }
-                else document.getElementById('form').action = './pos3.html';
+                else document.getElementById('form').action = './pos2';
             };
         </script>
         <script type="text/javascript" src="cordova.js"></script>

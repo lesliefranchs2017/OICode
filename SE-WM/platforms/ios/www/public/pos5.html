@@ -33,7 +33,7 @@
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">-->
-        <link rel="stylesheet" type="text/css" href="css/index.css">
+        <link rel="stylesheet" type="text/css" href="index.css">
         <title>Ticket Taker Beta</title>
     </head>
     <body>
@@ -47,7 +47,7 @@
         <div>
             <h1>Ticket Taker Beta</h1><h2 style='text-align:center;'>Location/Well</h2><br>
             <form id = 'form' style='text-align:center;' action='' method='POST'>
-                <input type='text' id='text'> <br><br>
+                <input type='text' id='text' name='text'> <br><br>
                 <br><br><button class='next' id='next' onclick='checkFilled()'><span>Next    </span></button>
             </form>
             <p id='testing'></p>
@@ -68,7 +68,7 @@
                     alert("You must enter the location/well before moving on.");
                     document.getElementById('form').action = '';
                 }
-                else document.getElementById('form').action = './pos6.html';
+                else document.getElementById('form').action = './pos5';
             };
         </script>
         <script type="text/javascript" src="cordova.js"></script>

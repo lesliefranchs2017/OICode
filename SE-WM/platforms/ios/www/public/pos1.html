@@ -33,7 +33,9 @@
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">-->
-        <link rel="stylesheet" type="text/css" href="css/index.css">
+        <script src="../server.js"></script>
+        <script>POS1Loaded();</script>
+        <link rel="stylesheet" type="text/css" href="index.css">
         <title>Ticket Taker Beta</title>
     </head>
     <body>
@@ -48,6 +50,9 @@
             <h1>Ticket Taker Beta</h1><h2 style='text-align:center;'>Select Gas Company</h2><br>
             <form id = 'form' style='text-align:center;' action='' method='POST'>
                 <input type='text' placeholder='Search' id='text'> <br><br>
+                <!--Hoo boy here we go
+                    start loop at 0 go to less than # rows in table-->
+
                 <input type='button' class='btn' id='s1' value="A Sample Company" onclick='changeColor(this)'>
                 <input type='button' class='btn' id='s2' value="Bob's Sample Company" onclick='changeColor(this)'>
                 <input type='button' class='btn' id='s3' value="Ben's Sample Company" onclick='changeColor(this)'>
@@ -55,11 +60,45 @@
                 <input type='button' class='btn' id='s5' value="Cool Sample Company" onclick='changeColor(this)'>
                 <input type='button' class='btn' id='s6' value="Sample Company" onclick='changeColor(this)'>
                 <input type='button' class='btn' id='s7' value="Samplezz Company" onclick='changeColor(this)'>
+                <input type='text' id='gas' name='gas' style='visibility: hidden;'>
                 <br><br><button class='next' id='next' onclick='checkSelected()'><span>Next    </span></button>
             </form>
-            <p id='testing'></p>
+            <p id='testing' name='testing' style='visibility:hidden;'></p>
         </div>
         <script>
+                /*
+                var express = require('express');
+                alert("got here");
+                const config = require('../config.js');
+                
+                const client = new Client({
+                    user:config.db.user,
+                    host:config.db.host,
+                    database:config.db.database,
+                    password:config.db.password,
+                    port:config.db.port,
+                    ssl:config.db.ssl  
+                })
+
+                client.connect();
+
+                client.query("SELECT COUNT(gas_company) FROM gas_companies_table",(err,res)=>{
+
+                    if (err) 
+                    {
+                        console.log(err);
+                        client.end();
+                        res.status(400).send(err);
+                    }
+                    else{
+                        console.log(err,res);
+                        document.getElementById('testing').innerHTML = res.toString();
+                        
+                        client.end();
+                    }
+                })*/
+            
+
             setInterval(doIt, 100);
 
             function doIt() {
@@ -103,6 +142,7 @@
                     document.getElementById(num).style.backgroundColor = "#0066ff";
                 }
                 elmnt.style.backgroundColor = "#33cc33";
+                document.getElementById('gas').value = elmnt.value;
                 document.getElementById('next').style.backgroundColor = "#33cc33";
             };
 
@@ -123,7 +163,7 @@
                     alert("You must select a gas company before moving on.");
                     document.getElementById('form').action = '';
                 }
-                else document.getElementById('form').action = './pos2.html';
+                else document.getElementById('form').action = './pos1';
             };
         </script>
         <script type="text/javascript" src="cordova.js"></script>
