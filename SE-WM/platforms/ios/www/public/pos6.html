@@ -33,7 +33,7 @@
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">-->
-        <link rel="stylesheet" type="text/css" href="css/index.css">
+        <link rel="stylesheet" type="text/css" href="index.css">
         <title>Ticket Taker Beta</title>
     </head>
     <body>
@@ -54,28 +54,40 @@
         <div>
             <h1>Ticket Taker Beta</h1><h2 style='text-align:center;'>Materials</h2><br>
             <form id = 'form' style='text-align:center;' action='' method='POST' class = 'materials'>
+                <select id = 'material'>
+                    <option value=''>Select</option>
+                    <option value='water'>Water</option>
+                    <option value='solids'>Solids</option>
+                    <option value='wet solids'>Wet Solids</option>
+                </select>
                 <select id = 'select'>
                     <option value=''>Select</option>
                     <option value='production'>Production</option>
                     <option value='flow back'>Flow Back</option>
                 </select>
-                <input type='text' id='text' placeholder='1bbl-150bbls'> 
+                <input type='text' id='text' placeholder=''> 
                 <input type='button' value='Add' onclick='addBlock()'>
-                <p><span id = 'temp'></span></p>
-                <p><b>Water totals:</b><span id='totals'> 0</span></p><br>
+                <p><b>Totals: </b><span id='totals'>0</span></p><br>
+                <input type='text' id='mat' name='mat' style='visibility: hidden; display:inline-block; width:30%;'>
+                <input type='text' id='matType' name='matType' style='visibility: hidden; display:inline-block; width:30%;'>
+                <input type='text' id='matNum' name='matNum' style='visibility: hidden; display:inline-block; width:30%;'>
                 <br><button class='next' id='next' onclick='checkSelected()'><span>Next    </span></button>
             </form>
         </div>
         <script>
             function addBlock(){
+                var type = document.getElementById('material');
+                var typeVal = type.options[type.selectedIndex].text;
+                document.getElementById('mat').value=typeVal;
                 var sel = document.getElementById('select');
                 var selVal = sel.options[sel.selectedIndex].text;
+                document.getElementById('matType').value=selVal;
                 var txt = document.getElementById('text').value;
-                var block = document.getElementById('temp');
-                if (selVal != 'Select' && txt != '') {block.innerHTML=selVal + " | " + txt; document.getElementById('next').style.backgroundColor="rgb(51, 204, 51)"}
+                document.getElementById('matNum').value=txt;
+                var block = document.getElementById('totals');
+                if (selVal != 'Select' && typeVal != 'Select' && txt != '') {block.innerHTML= " " + typeVal + " | " + selVal + " | " + txt + " "; document.getElementById('next').style.backgroundColor="rgb(51, 204, 51)"}
                 block.style.backgroundColor="black";
                 block.style.color="white";
-                document.getElementById('totals').innerHTML = ' ' + txt;
             };
 
             function checkSelected(){
@@ -86,7 +98,7 @@
                     alert("You must input the materials information before moving on.");
                     document.getElementById('form').action = '';
                 }
-                else document.getElementById('form').action = './pos7.html';
+                else document.getElementById('form').action = './pos6';
             };
         </script>
         <script type="text/javascript" src="cordova.js"></script>

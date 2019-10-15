@@ -301,3 +301,95 @@ app.post('/pos5' , function(req,res){
 	});
 	return res.redirect('/pos6.html');  
 });
+
+app.post('/pos6' , function(req,res){
+
+    var material = req.body.mat;
+    var material_type = req.body.matType;
+    var material_amount = req.body.matNum;
+    var updateText = '';
+
+    switch(material) {
+        case "Water":
+            updateText = 'UPDATE ticket_table SET water_type = $1, water_total = $2 WHERE ticket_id = $3'
+            break;
+        case "Solids":
+            updateText = 'UPDATE ticket_table SET solid_type = $1, solid_total = $2 WHERE ticket_id = $3'
+            break;
+        case "Wet Solids":
+            updateText = 'UPDATE ticket_table SET wet_type = $1, wet_total = $2 WHERE ticket_id = $3';
+            break;
+    }
+
+
+    const client = new Client({
+        user:config.db.user,
+        host:config.db.host,
+        database:config.db.database,
+        password:config.db.password,
+        port:config.db.port,
+        ssl:config.db.ssl  
+    })
+
+  
+    client.connect()
+            
+    client.query(updateText, [material_type, material_amount, newTicketID],(err,res)=>{
+
+        if (err)
+        {
+            console.log(err);
+            client.end();
+            res.status(400).send(err);
+        }
+        else{
+            console.log(err,res);
+            console.log("DATA was succesfully inputed into database ");//+ JSON.stringify(data) );    
+            client.end();
+        }
+    })
+  
+	res.set({
+		'Access-Control-Allow-Origin' : '*'
+	});
+	return res.redirect('/pos7.html');  
+});
+
+app.post('/pos7' , function(req,res){
+
+    var notes = req.body.text;
+
+    const client = new Client({
+        user:config.db.user,
+        host:config.db.host,
+        database:config.db.database,
+        password:config.db.password,
+        port:config.db.port,
+        ssl:config.db.ssl  
+    })
+
+  
+    client.connect()
+
+    const updateText = 'UPDATE ticket_table SET ticket_notes = $1 WHERE ticket_id = $2'
+            
+    client.query(updateText, [notes, newTicketID],(err,res)=>{
+
+        if (err)
+        {
+            console.log(err);
+            client.end();
+            res.status(400).send(err);
+        }
+        else{
+            console.log(err,res);
+            console.log("DATA was succesfully inputed into database ");//+ JSON.stringify(data) );    
+            client.end();
+        }
+    })
+  
+	res.set({
+		'Access-Control-Allow-Origin' : '*'
+	});
+	return res.redirect('/pos8.html');  
+});
