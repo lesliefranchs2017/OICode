@@ -36,7 +36,7 @@
         <link rel="stylesheet" type="text/css" href="index.css">
         <title>Ticket Taker Beta</title>
     </head>
-    <body>
+    <body onload='getTicket()'>
         <!--<div class="app">
             <h1>Ticket Taker Beta</h1>
             <div id="deviceready" class="blink">
@@ -51,13 +51,13 @@
             <div style='display:inline-block; width: 47%; border-right: 1px solid lightgray; padding: 20px;'>
                 <h3 style='text-align:center;'>Review</h3>
                 <p style='font-size: 26px'>
-                    Gas company: <br> 
-                    Trucking company: <br> 
-                    Driver Name: <br> 
-                    Truck Number: <br> 
-                    Trailer Number: <br> 
-                    Location/Well: <br> 
-                    Materials: <br>
+                    Gas company: <b><span id='gasCo'></span></b><br> 
+                    Trucking company: <b><span id='truckCo'></span></b><br> 
+                    Driver Name: <b><span id='Dname'></span></b><br> 
+                    Truck Number: <b><span id='TruckNum'></span></b><br> 
+                    Trailer Number: <b><span id='TrailerNum'></span></b><br> 
+                    Location/Well: <b><span id='Loc'></span></b><br> 
+                    Materials: <b><span id='Mat'></span></b><br>
                 </p>
             </div>
             <div style='display:inline-block; width: 47%; padding: 20px;'>
@@ -68,7 +68,30 @@
                 </form>
             </div>
         </div>
+        <script src="jquery-1.12.4.js"></script>
         <script>
+            function getTicket() {
+                $.ajax({
+                    type: 'GET',
+                    url: 'http://localhost:3000/ajax_get_ticket',
+                    dataType: 'json',
+                    async:  false
+                })
+                .done(function(result) {
+                    document.getElementById('gasCo').innerHTML = result.rows[0].gas_company;
+                    document.getElementById('truckCo').innerHTML = result.rows[0].truck_company;
+                    document.getElementById('Dname').innerHTML = result.rows[0].driver_name;
+                    document.getElementById('TruckNum').innerHTML = result.rows[0].truck_number;
+                    document.getElementById('TrailerNum').innerHTML = result.rows[0].trailer_number;
+                    document.getElementById('Loc').innerHTML = result.rows[0].material_location;
+                    if (result.rows[0].water_total != 0) document.getElementById('Mat').innerHTML = "Water | " + result.rows[0].water_type + " " + result.rows[0].water_total;
+                    else if (result.rows[0].solid_total != 0) {document.getElementById('Mat').innerHTML = "Solids | " + result.rows[0].solid_type + " " + result.rows[0].solid_total;}
+                    else if (result.rows[0].wet_total != 0) {document.getElementById('Mat').innerHTML = "Wet Solids | " + result.rows[0].wet_type + " " + result.rows[0].wet_total;}
+                })
+                .fail(function(jqXHR, testStatus, err) {
+                    console.log('AJAX error response:', textStatus);
+                });
+            }
         </script>
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>

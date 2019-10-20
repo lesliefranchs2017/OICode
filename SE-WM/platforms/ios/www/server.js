@@ -393,3 +393,135 @@ app.post('/pos7' , function(req,res){
 	});
 	return res.redirect('/pos8.html');  
 });
+
+app.post('/pos8' , function(req,res){
+    var signature = req.body.sig;
+    var date = new Date();
+    var day = date.getDate();
+    var month = date.getMonth() + 1;
+    var year = date.getFullYear();
+    if (month < 10) month = "0" + month;
+    if (day < 10) day = "0" + day;
+    var today = year + "-" + month + "-" + day;
+    today = today.split("/").reverse().join("-");
+
+    const client = new Client({
+        user:config.db.user,
+        host:config.db.host,
+        database:config.db.database,
+        password:config.db.password,
+        port:config.db.port,
+        ssl:config.db.ssl  
+    })
+
+  
+    client.connect();
+
+    const updateText = 'UPDATE ticket_table SET signature = $1, date = $2 WHERE ticket_id = $3';
+            
+    client.query(updateText, [signature, today, newTicketID],(err,res)=>{
+
+        if (err)
+        {
+            console.log(err);
+            client.end();
+            res.status(400).send(err);
+        }
+        else{
+            console.log(err,res);
+            console.log("DATA was succesfully inputed into database ");//+ JSON.stringify(data) );    
+            client.end();
+        }
+    })
+  
+	res.set({
+		'Access-Control-Allow-Origin' : '*'
+	});
+	return res.redirect('/index.html');  
+});
+
+// get function that will show data from database
+app.get('/ajax_get_ticket', function(req, res) {
+
+    client = new Client({
+        user:config.db.user,
+        host:config.db.host,
+        database:config.db.database,
+        password:config.db.password,
+        port:config.db.port,
+        ssl:config.db.ssl
+      })
+  
+    client.connect()
+
+    const selectText = "SELECT gas_company, truck_company, driver_name, truck_number, trailer_number, material_location, water_type,\
+                        water_total, solid_type, solid_total, wet_type, wet_total\
+                        FROM ticket_table WHERE ticket_id=$1";
+    client.query(selectText, [newTicketID], function(err, result) {
+        if (err) {
+            throw err;
+        }
+  
+        var size = result.rows.length;
+        console.log(size);
+        console.log(result);
+        res.send(result);
+  
+        client.end();
+  
+      });
+});
+
+app.get('/ajax_get_gas_comp', function(req, res) {
+
+    client = new Client({
+        user:config.db.user,
+        host:config.db.host,
+        database:config.db.database,
+        password:config.db.password,
+        port:config.db.port,
+        ssl:config.db.ssl
+      })
+  
+    client.connect()
+
+    const selectText = "SELECT gas_company FROM gas_companies_table";
+    client.query(selectText, function(err, result) {
+        if (err) {
+            throw err;
+        }
+
+        var size = result.rows.length;
+        console.log(size);
+        console.log(result);
+        res.send(result);
+    });
+
+});
+
+app.get('/ajax_get_truck_comp', function(req, res) {
+
+    client = new Client({
+        user:config.db.user,
+        host:config.db.host,
+        database:config.db.database,
+        password:config.db.password,
+        port:config.db.port,
+        ssl:config.db.ssl
+      })
+  
+    client.connect()
+
+    const selectText = "SELECT truck_company FROM truck_companies_table";
+    client.query(selectText, function(err, result) {
+        if (err) {
+            throw err;
+        }
+
+        var size = result.rows.length;
+        console.log(size);
+        console.log(result);
+        res.send(result);
+    });
+
+});

@@ -38,7 +38,7 @@
         <link rel="stylesheet" type="text/css" href="index.css">
         <title>Ticket Taker Beta</title>
     </head>
-    <body>
+    <body onload = 'getCompanies()'>
         <!--<div class="app">
             <h1>Ticket Taker Beta</h1>
             <div id="deviceready" class="blink">
@@ -50,54 +50,49 @@
             <h1>Ticket Taker Beta</h1><h2 style='text-align:center;'>Select Gas Company</h2><br>
             <form id = 'form' style='text-align:center;' action='' method='POST'>
                 <input type='text' placeholder='Search' id='text'> <br><br>
-                <!--Hoo boy here we go
-                    start loop at 0 go to less than # rows in table-->
-
-                <input type='button' class='btn' id='s1' value="A Sample Company" onclick='changeColor(this)'>
+                <span id = 'buttonsHere'>
+                <!--<input type='button' class='btn' id='s1' value="A Sample Company" onclick='changeColor(this)'>
                 <input type='button' class='btn' id='s2' value="Bob's Sample Company" onclick='changeColor(this)'>
                 <input type='button' class='btn' id='s3' value="Ben's Sample Company" onclick='changeColor(this)'>
                 <input type='button' class='btn' id='s4' value="Bobby's Sample Company" onclick='changeColor(this)'>
                 <input type='button' class='btn' id='s5' value="Cool Sample Company" onclick='changeColor(this)'>
                 <input type='button' class='btn' id='s6' value="Sample Company" onclick='changeColor(this)'>
-                <input type='button' class='btn' id='s7' value="Samplezz Company" onclick='changeColor(this)'>
+                <input type='button' class='btn' id='s7' value="Samplezz Company" onclick='changeColor(this)'>-->
+                </span>
+
                 <input type='text' id='gas' name='gas' style='visibility: hidden;'>
                 <br><br><button class='next' id='next' onclick='checkSelected()'><span>Next    </span></button>
             </form>
             <p id='testing' name='testing' style='visibility:hidden;'></p>
         </div>
+        <script src="jquery-1.12.4.js"></script>
         <script>
-                /*
-                var express = require('express');
-                alert("got here");
-                const config = require('../config.js');
-                
-                const client = new Client({
-                    user:config.db.user,
-                    host:config.db.host,
-                    database:config.db.database,
-                    password:config.db.password,
-                    port:config.db.port,
-                    ssl:config.db.ssl  
+            var buttonSize = 0;
+
+            function getCompanies() {
+                $.ajax({
+                    type: 'GET',
+                    url: 'http://localhost:3000/ajax_get_gas_comp',
+                    dataType: 'json',
+                    async:  false
                 })
 
-                client.connect();
-
-                client.query("SELECT COUNT(gas_company) FROM gas_companies_table",(err,res)=>{
-
-                    if (err) 
-                    {
-                        console.log(err);
-                        client.end();
-                        res.status(400).send(err);
+                .done(function(result) {
+                    buttonSize = result.rows.length;
+                    var allButtons = "";
+                    var i;
+                    for (i = 0; i < result.rows.length; i++) {
+                        var j = "option" + i.toString();
+                        var compName = result.rows[i].gas_company;
+                        var buttonString = '<input type="button" class="btn" id="' + j + '" value="' + compName + '" onclick="changeColor(this)">';
+                        allButtons = allButtons + buttonString;
                     }
-                    else{
-                        console.log(err,res);
-                        document.getElementById('testing').innerHTML = res.toString();
-                        
-                        client.end();
-                    }
-                })*/
-            
+                    document.getElementById('buttonsHere').innerHTML = allButtons;
+                })
+                .fail(function(jqXHR, testStatus, err) {
+                    console.log('AJAX error response:', textStatus);
+                });
+            }
 
             setInterval(doIt, 100);
 
@@ -109,11 +104,11 @@
                 /*NEXT STEPS: clean this function! looks like loop part could use another function*/
                 var txt = document.getElementById('text').value;
                 var t = txt.toLowerCase();
-                var i = 1;
+                var i = 0;
                 if (txt != '') {
-                    for (i; i<8; i++)
+                    for (i; i<buttonSize; i++)
                     {
-                        var num = 's' + i.toString();
+                        var num = 'option' + i.toString();
                         var within = document.getElementById(num).value;
                         within = within.toLowerCase();
                         var x = within.search(t);
@@ -125,9 +120,9 @@
                         }
                     }
                 } else {
-                    for (i; i<8; i++) 
+                    for (i; i<buttonSize; i++) 
                     {
-                        var num = 's' + i.toString();
+                        var num = 'option' + i.toString();
                         document.getElementById(num).style.display = 'inline-block';
                     }
                 }
@@ -135,10 +130,10 @@
 
             function changeColor(elmnt) {
                 /*next button shouldn't work when nothing is selected. should bring up an alert that asks to choose gas company.*/
-                var i = 1;
-                for (i; i<8; i++)
+                var i = 0;
+                for (i; i<buttonSize; i++)
                 {
-                    var num = 's' + i.toString();
+                    var num = 'option' + i.toString();
                     document.getElementById(num).style.backgroundColor = "#0066ff";
                 }
                 elmnt.style.backgroundColor = "#33cc33";
@@ -148,15 +143,15 @@
 
             function checkSelected(){
                 var unSelected = 0;
-                var i = 1;
-                for (i; i<8; i++)
+                var i = 0;
+                for (i; i<buttonSize; i++)
                 {
-                    var num = 's' + i.toString();
+                    var num = 'option' + i.toString();
                     if (document.getElementById(num).style.backgroundColor == "rgb(51, 204, 51)") unSelected = unSelected - 1;
                     else unSelected = unSelected + 1;
                 }
                 document.getElementById('testing').innerHTML= unSelected;
-                if (unSelected == 7) 
+                if (unSelected == (buttonSize-1)) 
                 {
                     /*alert is a placeholder for future pop-up that will be more noticable
                     idea - include company logos in addition to titles because workers may recognize better*/
