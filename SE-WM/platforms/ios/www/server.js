@@ -52,7 +52,7 @@ app.use('/public', express.static(__dirname + '/public'));
 app.use(bodyParser.text({ type: 'text/html' }))
 app.use(bodyParser.text({ type: 'text/xml' }))
 
-function primary_key_generator(){
+function primary_key_generator(){ 
     var ret = Math.round(((Math.random()*100000)/25)*Math.sin(3));
     newTicketID = ret; 
     return (
@@ -63,9 +63,8 @@ function primary_key_generator(){
     );
 }
 
-    //using Andrew's posting client info as template for posting info, his original is on master
-    // get ticket input working first, then fix up reading gas and trucking companies from table
-app.post('/index' , function(req,res){
+
+app.post('/index' , function(req,res){ // currently does not generate another id if id generated is already taken, resulting in termination of server. FIX HERE
 
     var ticket_id = primary_key_generator();
 
@@ -302,7 +301,7 @@ app.post('/pos5' , function(req,res){
 	return res.redirect('/pos6.html');  
 });
 
-app.post('/pos6' , function(req,res){
+app.post('/pos6' , function(req,res){ // currently does not demand numeric values only, resulting in termination of server if string entered. FIX HERE
 
     var material = req.body.mat;
     var material_type = req.body.matType;
@@ -441,7 +440,7 @@ app.post('/pos8' , function(req,res){
 });
 
 // get function that will show data from database
-app.get('/ajax_get_ticket', function(req, res) {
+app.get('/ajax_get_ticket', function(req, res) { // gets currently do not work on heroku
 
     client = new Client({
         user:config.db.user,

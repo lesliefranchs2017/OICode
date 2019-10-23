@@ -97,7 +97,7 @@ undoButton.addEventListener("click", function (event) {
   signaturePad.penColor = color;
 });*/
 
-savePNGButton.addEventListener("click", function (event) {
+/*savePNGButton.addEventListener("click", function (event) {
   if (signaturePad.isEmpty()) {
     alert("Please provide a signature first.");
   } else {
@@ -122,4 +122,4 @@ saveSVGButton.addEventListener("click", function (event) {
     var dataURL = signaturePad.toDataURL('image/svg+xml');
     download(dataURL, "signature.svg");
   }
-});
+});*/
