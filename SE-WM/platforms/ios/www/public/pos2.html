@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+        <!--
+        Customize this policy to fit your own app's needs. For more guidance, see:
+            https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
+        Some notes:
+            * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+            * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+            * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+                * Enable inline JS: add 'unsafe-inline' to default-src
+        -->
+        <!-- FOR SOME REASON THESE META TAGS BELOW WERE MESSING UP THE SCRIPT TAGS?!?!?!?!?!-->
+       <!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">-->
+        <script src="../server.js"></script>
+        <script>POS1Loaded();</script>
+        <link rel="stylesheet" type="text/css" href="index.css">
+        <title>Ticket Taker Beta</title>
+    </head>
+    <body onload = 'getCompanies()'>
+        <!--<div class="app">
+            <h1>Ticket Taker Beta</h1>
+            <div id="deviceready" class="blink">
+                <p class="event listening">Connecting to Device</p>
+                <p class="event received">Device is Ready</p>
+            </div>
+        </div>-->
+        <div>
+            <h1>Ticket Taker Beta</h1><h2 style='text-align:center;'>Select Trucking Company</h2><br>
+            <form id = 'form' style='text-align:center;' action='' method='POST'>
+                <input type='text' placeholder='Search' id='text'> <br><br>
+                <span id = 'buttonsHere'>
+                <!--<input type='button' class='btn' id='s1' value="Trucks" onclick='changeColor(this)'>
+                <input type='button' class='btn' id='s2' value="Bob's Sample Company" onclick='changeColor(this)'>
+                <input type='button' class='btn' id='s3' value="Delivery 2U" onclick='changeColor(this)'>
+                <input type='button' class='btn' id='s4' value="Bobby's Sample Company" onclick='changeColor(this)'>
+                <input type='button' class='btn' id='s5' value="Trucking Services" onclick='changeColor(this)'>
+                <input type='button' class='btn' id='s6' value="Waste Delivery Service" onclick='changeColor(this)'>
+                <input type='button' class='btn' id='s7' value="Sample Trucking Company" onclick='changeColor(this)'>-->
+                </span>
+
+                <input type='text' id='truck' name='truck' style='visibility: hidden;'>
+                <br><br><button class='next' id='next' onclick='checkSelected()'><span>Next    </span></button>
+            </form>
+            <p id='testing' name='testing' style='visibility:hidden;'></p>
+        </div>
+        <script src="jquery-1.12.4.js"></script>
+        <script>
+            var buttonSize = 0;
+
+            function getCompanies() {
+                $.ajax({
+                    type: 'GET',
+                    url: 'http://localhost:3000/ajax_get_truck_comp',
+                    dataType: 'json',
+                    async:  false
+                })
+
+                .done(function(result) {
+                    buttonSize = result.rows.length;
+                    var allButtons = "";
+                    var i;
+                    for (i = 0; i < result.rows.length; i++) {
+                        var j = "option" + i.toString();
+                        var compName = result.rows[i].truck_company;
+                        var buttonString = '<input type="button" class="btn" id="' + j + '" value="' + compName + '" onclick="changeColor(this)">';
+                        allButtons = allButtons + buttonString;
+                    }
+                    document.getElementById('buttonsHere').innerHTML = allButtons;
+                })
+                .fail(function(jqXHR, testStatus, err) {
+                    console.log('AJAX error response:', textStatus);
+                });
+            }
+
+            setInterval(doIt, 100);
+
+            function doIt() {
+                document.getElementById('text').addEventListener('keyup', changeButtons);
+            }
+
+            function changeButtons() {
+                /*NEXT STEPS: clean this function! looks like loop part could use another function*/
+                var txt = document.getElementById('text').value;
+                var t = txt.toLowerCase();
+                var i = 0;
+                if (txt != '') {
+                    for (i; i<buttonSize; i++)
+                    {
+                        var num = 'option' + i.toString();
+                        var within = document.getElementById(num).value;
+                        within = within.toLowerCase();
+                        var x = within.search(t);
+                        if (x==-1) {
+                            document.getElementById(num).style.display = 'none';
+                        }
+                        else {
+                            document.getElementById(num).style.display = 'inline-block';
+                        }
+                    }
+                } else {
+                    for (i; i<buttonSize; i++) 
+                    {
+                        var num = 'option' + i.toString();
+                        document.getElementById(num).style.display = 'inline-block';
+                    }
+                }
+            };
+
+            function changeColor(elmnt) {
+                /*next button shouldn't work when nothing is selected. should bring up an alert that asks to choose trucking company.*/
+                var i = 0;
+                for (i; i<buttonSize; i++)
+                {
+                    var num = 'option' + i.toString();
+                    document.getElementById(num).style.backgroundColor = "#0066ff";
+                }
+                elmnt.style.backgroundColor = "#33cc33";
+                document.getElementById('truck').value = elmnt.value;
+                document.getElementById('next').style.backgroundColor = "#33cc33";
+            };
+
+            function checkSelected(){
+                var unSelected = 0;
+                var i = 0;
+                for (i; i<buttonSize; i++)
+                {
+                    var num = 'option' + i.toString();
+                    if (document.getElementById(num).style.backgroundColor == "rgb(51, 204, 51)") unSelected = unSelected - 1;
+                    else unSelected = unSelected + 1;
+                }
+                document.getElementById('testing').innerHTML= unSelected;
+                if (unSelected == (buttonSize-1)) 
+                {
+                    /*alert is a placeholder for future pop-up that will be more noticable
+                    idea - include company logos in addition to titles because workers may recognize better*/
+                    alert("You must select a trucking company before moving on.");
+                    document.getElementById('form').action = '';
+                }
+                else document.getElementById('form').action = './pos2';
+            };
+        </script>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+    </body>
+</html>

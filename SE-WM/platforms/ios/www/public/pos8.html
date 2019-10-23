@@ -1,0 +1,92 @@
+
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+        <!--
+        Customize this policy to fit your own app's needs. For more guidance, see:
+            https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
+        Some notes:
+            * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+            * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+            * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+                * Enable inline JS: add 'unsafe-inline' to default-src
+        -->
+        <!-- FOR SOME REASON THESE META TAGS BELOW WERE MESSING UP THE SCRIPT TAGS?!?!?!?!?!-->
+       <!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">-->
+        <link rel="stylesheet" href="index.css">
+        <link rel="stylesheet" href="signature-pad.css">
+        <title>Ticket Taker Beta</title>
+    </head>
+    <body>
+        <!--<div class="app">
+            <h1>Ticket Taker Beta</h1>
+            <div id="deviceready" class="blink">
+                <p class="event listening">Connecting to Device</p>
+                <p class="event received">Device is Ready</p>
+            </div>
+        </div>-->
+
+        <!-- two divs blocks next to eachother to fit everything on one screen (review on left, notes and next on right) -->
+        <div style='display:block;'><h1>Ticket Taker Beta</h1></div>
+        <form class='contain' id='form' action='' method='POST'>
+            <div id="signature-pad" name = "signature-pad" class="signature-pad">
+                <div class="signature-pad--body">
+                    <canvas></canvas>
+                </div>
+                <div class="signature-pad--footer">
+                    <div class="description">Sign above to submit your ticket
+                        <input type='text' id='sig' name='sig' style='visibility: hidden;'>
+                    </div>
+
+                    <div class="signature-pad--actions">
+                        <div>
+                            <button type="button" class="button clear" data-action="clear">Clear</button>
+                            <button type="button" class="button" data-action="undo">Undo</button>
+                        </div>
+                        <div>
+                            <button type="submit" class="button save" onclick='submitSig()'>Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <script src="signature_pad.umd.js"></script>
+        <script src="app.js"></script>
+        <script>
+            function submitSig() {
+                if (signaturePad.isEmpty()) {
+                    alert("Please provide a signature first.");
+                    document.getElementById('form').action='';
+                } else {
+                    var dataURL = signaturePad.toDataURL();
+                    document.getElementById('sig').innerHTML = dataURL;
+                    //download(dataURL, "signature.png");
+                    document.getElementById('form').action='./pos8';
+                }
+            }
+        </script>
+        <!--<script src="../cordova.js"></script>
+        <script src="../js/index.js"></script>-->
+    </body>
+</html>
