@@ -65,7 +65,7 @@
                     <option value='production'>Production</option>
                     <option value='flow back'>Flow Back</option>
                 </select>
-                <input type='text' id='text' placeholder=''> 
+                <input type='text' id='text' placeholder=''>
                 <input type='button' value='Add' onclick='addBlock()'>
                 <p><b>Totals: </b><span id='totals'>0</span></p><br>
                 <input type='text' id='mat' name='mat' style='visibility: hidden; display:inline-block; width:30%;'>
@@ -75,6 +75,24 @@
             </form>
         </div>
         <script>
+            setInterval(changePlaceholder, 100);
+
+            function changePlaceholder() {
+                var material = document.getElementById('material')
+                var mat = material.options[material.selectedIndex].text;
+                switch(mat) {
+                    case "Water":
+                        document.getElementById('text').placeholder = "1 bbl - 150 bbls";
+                        break;
+                    case "Solids":
+                        document.getElementById('text').placeholder = "1 yard - 25 yards";
+                        break;
+                    case "Wet Solids":
+                        document.getElementById('text').placeholder = "5 bbls - 150 bbls";
+                        break;
+                }
+            }
+
             function addBlock(){
                 var type = document.getElementById('material');
                 var typeVal = type.options[type.selectedIndex].text;
