@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+     <meta charset="UTF-8">
+     <link rel="stylesheet" type="text/css" href="style.css">
+
+
+<!-- Temporary css -->
+<style>
+  .wrap {
+    text-align: center;
+}
+.button {
+    position: absolute;
+    top: 50%;
+}
+.main_page input[type="button"],
+.main_page input[type="submit"] {
+background-color: #4CAF50;
+display: inline-block;
+margin: 10px;
+cursor: pointer;
+color: #f2f2f2;
+;
+padding: 10px 18px;
+text-decoration: none;
+font: 18px sans-serif,Arial, Helvetica;
+}
+.main_page input[type="button"]:hover,
+.main_page input[type="submit"]:hover {
+ background-color:  rgb(38, 143, 74);
+}
+</style>
+     <h1 style=text-align:center>Hello Login User</h1>
+
+
+
+
+
+</head>
+<body>
+  <div class="wrap">
+<div class="main_page">
+  <input type="submit" id="pos"  name="pos" value="POS"  /><br>
+  <input type="submit" id="tickets"  name="tickets" value="Tickets"  /><br>
+  <input type="submit" id="submitDetails"  name="submitDetails" value="Clients" onclick="location.href='client.html';" /><br>
+  <input type="submit" id="truck_companies"  name="truck_companies" value="Trucking Companies"  /><br>
+  <input type="submit" id="emp"  name="emp" value="Employees"  /><br><br><br><br><br>
+  <input type="submit" id="profile"  name="profile" value="Profile"  /><br>
+  <input type="submit" id="logout"  name="logout" value="Logout"  /><br>
+
+
+
+  </div>
+  </div>
+
+    <P>Note: POS- tablet application for truck drivers to fill out tickets</p>
+      <P>Note: Tickets- where tickets can be viewed, edited and reports ran </p>
+        <P>Note: Clients- add or edit clients</p>
+          <P>Note: Trucking Companies- add or edit truck companies</p>
+            <P>Note: Employees- add or edit employees and their access rights</p>
+              <P>Note: Profile- edit email password or pin, admin settings</p>
+
+</body>
+</html>
