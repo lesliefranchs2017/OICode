@@ -4,10 +4,15 @@ var bodyParser = require('body-parser');
 var crypto = require('crypto');
 const pg = require('pg');
 var app = express();
+var ejs = require('ejs');
 var sequelize = require('sequelize');
 var client = new pg.Client();
 const config = require('./config');
 const { performance } = require('perf_hooks');
+
+// Set EJS as templating engine
+//app.set('view engine', 'html');
+//app.engine('html',require('ejs').renderFile);
 
 app.use(bodyParser.urlencoded({ // to support URL-encoded bodies
     extended: true
@@ -15,6 +20,8 @@ app.use(bodyParser.urlencoded({ // to support URL-encoded bodies
 
 //enabling css style sheet
 app.use(express.static(__dirname + '/public'));
+//app.set('views', __dirname + '/views');
+
 
 var configs = {
     user:config.db.user,
@@ -42,7 +49,7 @@ app.get('/',function(req,res){
 	res.set({
 		'Access-Control-Allow-Origin' : '*' // creates access from any orgin
 	});
-	return res.redirect('/public/add_client.html');
+	return res.redirect('/public/index.html');
 }).listen(3000);
 
 console.log("Server listening at : 3000");
@@ -78,19 +85,19 @@ app.post('/add_client' , function(req,res){
     var clientId_input = primary_key_generator();
     var companyStatus_input = req.body.toggle;
     var companyStatus = false;
-	
+
     // checking if toggle switch is on or off
     if( companyStatus_input == "on" )
     {
         companyStatus = true;
     }
 
-    else 
+    else
     {
         companyStatus = false;
     }
 
-    // reversing the date for postgreSQL 
+    // reversing the date for postgreSQL
     startDate_input = startDate_input.split("/").reverse().join("-");
 
 const client = new Client({
@@ -129,4 +136,89 @@ addressOne_input, addressTwo_input, city_input, state_input, zip_input, county_i
 	});
 	return res.redirect('/public/success.html');
 });
+
+app.post('/login', function(req, res) {
+
+  client = new Client({
+      user:config.db.user,
+      host:config.db.host,
+      database:config.db.database,
+      password:config.db.password,
+      port:config.db.port,
+      ssl:config.db.ssl
+    })
+
+    client.connect()
+
+    client.query("SELECT email, password, pin, access_rights, name FROM login_table", function(err, results) {
+      if (err)
+      {
+          console.log(err);
+          client.end();
+      }
+      else{
+          //console.log(err,res)
+          console.log("Success! Login info sent!");
+          client.end();
+          }
+
+          var userName, user_pin, user_access_code;
+          var user_email = req.body.email_id;
+          var user_pass = req.body.pass_id;
+          console.log(user_pass);
+          var emailBool = false;
+          var passBool = false;
+          var success = false;
+
+        //  for loop is how you can step through the database per row
+          for(let step = 0;step < results.rows.length; step++)
+          {
+            if(results.rows[step].email == user_email)
+            {
+              emailBool = true;
+              user_pin = results.rows[step].pin;
+            }
+
+            if(results.rows[step].password == user_pass)
+            {
+              passBool = true;
+            }
+          }
+
+          if(emailBool == true && passBool == true)
+          {
+            success = true;
+
+          //  window.location.href="login_pin.html";
+          }
+          else{
+            success = false;
+          }
+
+      client.end();
+
+      if(success)
+      {
+        //res.send('<script>alert("Login Succesfull!")</script>');
+      res.redirect('/login_pin.html');
+      //res.send('<script>alert("Login Succesfull!")</script>');
+      //var data = 0;
+      //return res.sendFile('login_pin.html', { data: data });
+    //  return res.sendFile('login_pin.html');
+
+
+      }
+
+      else
+      {
+      //res.send('<script>alert("Login denied, re-enter email and password!")</script>');
+      return res.redirect('login.html');
+      }
+
+
+
+    });
+  });
+
+
 
