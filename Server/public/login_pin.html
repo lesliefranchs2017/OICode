@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+     <meta charset="UTF-8">
+     <title>Pin authentication</title>
+
+<!-- Temporary css
+<style>
+body {
+  border-color: solid blue;
+  vertical-align: middle;
+  padding: 20px;
+            margin: 70px auto;
+            text-align: center;
+}
+.numberButtons
+{
+width: 60px;
+display: inline-block;
+font-size: 30px;
+margin-right: .5%;
+margin-left: .5%;
+margin-top: .5%;
+margin-bottom: .5%;
+border-color:#000;
+background-color: #D3D3D4;
+    -webkit-border-radius: .3em;
+    -moz-border-radius: .3em;
+    border-radius: .3em;
+    font-family: Verdana, arial, sans-serif;
+border: solid black;
+border-width: 2px;
+}
+.placeholder_pin {
+    text-align: center;
+    font-size: 30px;
+    border-color:#000;
+    border-width: 2px;
+    margin-bottom: 10px;
+    font-family: Verdana, arial, sans-serif;
+}
+.reset_button{
+  border-color:#000;
+      -webkit-border-radius: .3em;
+      -moz-border-radius: .3em;
+      border-radius: .3em;
+      font-size: 30px;
+      background-color: #D3D3D3;
+      font-family: Verdana, arial, sans-serif;
+}
+.clearButton{
+}
+.check{
+  background-color: #7CFC00;
+}
+.backspace{
+  background-color: red;
+}
+</style>
+-->
+
+
+<script>
+//CONFIG:
+//OTHER
+var totalAttempts = 0;
+function addNumber(value)
+{
+	var pin = document.getElementById("pinNumber");
+	pin.value += value;
+}
+function clearPad()
+{
+	document.getElementById("pinNumber").value = "";
+}
+function deleteLastElement()
+{
+  let str = document.getElementById("pinNumber").value;
+  str = str.substring(0, str.length - 1);
+  document.getElementById("pinNumber").value = str;
+}
+function  checkPinNumber()
+{
+  var correctPinNumber = 3333;
+	//get values from doc.
+	var formArea= document.getElementById("formArea");
+	var errorArea = document.getElementById("errorMessage");
+	var pinNumber = document.getElementById("pinNumber").value;
+//validate PIN.
+if (pinNumber == correctPinNumber)
+{
+  alert("Pin accepted!");
+  window.location="pos.html";
+	return;
+}
+else
+{
+	alert("Incorrect Pin, please try again");
+	clearPad()
+}
+//add one more access attempt;
+totalAttempts++;
+if( totalAttempts == 3)
+{
+	formArea.style.display = "none";
+	errorArea.innerHTML = "Too many attempts.. sorry.";
+	clearPad()
+}
+}
+function message()
+{
+  alert("login successfull, enter pin");
+}
+</script>
+
+</head>
+
+<body>
+  <body onload="message()">
+  <div class="pin">
+
+
+  <p>
+    <input type="text" class="placeholder_pin"name="pinNumber" placeholder="Enter PIN" id="pinNumber" style="width:197px"/>
+    <br />
+    <input type="button" class="numberButtons one"   value="1" onclick="addNumber(this.value)"  />
+    <input type="button" class="numberButtons"  value="2" onclick="addNumber(this.value)" />
+    <input type="button" class="numberButtons"  value="3" onclick="addNumber(this.value)" />
+    <br />
+    <input type="button" class="numberButtons"  value="4" onclick="addNumber(this.value)" />
+    <input type="button" class="numberButtons"  value="5" onclick="addNumber(this.value)" />
+    <input type="button" class="numberButtons"  value="6" onclick="addNumber(this.value)" />
+    <br />
+    <input type="button" class="numberButtons"  value="7" onclick="addNumber(this.value)" />
+    <input type="button" class="numberButtons"  value="8" onclick="addNumber(this.value)" />
+    <input type="button" class="numberButtons"  value="9" onclick="addNumber(this.value)" />
+    <br />
+    <input type="button" class="backspace"  value="⌫" onclick="deleteLastElement()" />
+    <input type="button" class="numberButtons"  value="0" onclick="addNumber(this.value)" />
+    <input type="button" alt="submit" value = "✓" class="checkmark"   onclick="checkPinNumber()" />
+  </p>
+
+
+    <input type="submit" name="pinButton" class="reset_button clearButton" id="pinButton" value="Reset" onclick="clearPad()" style="width:197px" />
+
+
+
+    </div>
+
+  <!--
+  <div class="wrap">
+<div class="add_client-style">
+  <input type="submit" id="submitDetails"  name="submitDetails" value="submit" onclick="location.href='pos.html';" /><br>
+  </div>
+  </div>
+  -->
+
+</body>
+</html>
