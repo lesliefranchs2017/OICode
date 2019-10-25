@@ -1,0 +1,49 @@
+<html>
+	<head>
+		<title> Signup Form </title>
+		<link rel="stylesheet" type="text/css" href="style.css">
+
+		<script src="jquery-1.12.4.js"></script>
+		<script>
+			function checkLogin() {
+				$.ajax({
+					type: 'GET',
+					url: 'http://localhost:3000/ajax_get_login',
+					dataType: 'json',
+					async: false
+				})
+				.done(function(success) {
+					if(success == true)
+					{
+						alert("Email and password accepted!");
+//						localStorage["e.key"] = user_email;
+						window.location.href="login_pin.html";
+					}
+					else{
+						alert("Email and password denied!");
+					}
+				})
+				.fail(function(jqXHR, testStatus, err) {
+					console.log('AJAX error response:', textStatus);
+				});
+			}
+			</script>
+
+	</head>
+	<body>
+
+		<div class="login-page">
+		  <div class="form">
+		    <form class="login-form" id='log_form' action='/login' method='POST'>
+		      <input type="email" id="email_id" name="email_id" placeholder="Email" required/>
+		      <input type="password" id="pass_id" name="pass_id" placeholder="Password" required/>
+					<input type="submit" class="login_button" value="Login" />
+		      <p class="message">Not registered? <a href="#">Create an account</a></p>
+					<p class="message">Forgot password? <a href="#">Retrieve password</a></p>
+
+		    </form>
+		  </div>
+		</div>
+
+	</body>
+</html>
