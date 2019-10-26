@@ -165,7 +165,6 @@ app.post('/login', function(req, res) {
           var userName, user_pin, user_access_code;
           var user_email = req.body.email_id;
           var user_pass = req.body.pass_id;
-          console.log(user_pass);
           var emailBool = false;
           var passBool = false;
           var success = false;
