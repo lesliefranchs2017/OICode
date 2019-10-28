@@ -50,7 +50,7 @@ app.get('/',function(req,res){
 		'Access-Control-Allow-Origin' : '*' // creates access from any orgin
 	});
 	return res.redirect('/public/index.html');
-}).listen(3000);
+}).listen(process.env.PORT || 3000);
 
 console.log("Server listening at : 3000");
 app.use('/public', express.static(__dirname + '/public'));
