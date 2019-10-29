@@ -5,6 +5,7 @@
      <link rel="stylesheet" type="text/css" href="style.css">
 
 
+
 <!-- Temporary css -->
      <title> Add Client </title>
      <style>
@@ -91,11 +92,11 @@
           color: rgb(10, 10, 10);
           text-align: center;
         }
-        textarea {
+        .add_client-style textarea {
         width: 300px;
         height: 5em;
         }
-        input, select, textarea {
+        .add_client-style input, .add_client-style select, .add_client-style textarea {
         font-size: 80%;
         }
         /* The switch - the box around the sliders */
@@ -155,7 +156,7 @@
         .toggleBox{
           float: left;
         }
-        input:-webkit-autofill,
+         input:-webkit-autofill,
          input:-webkit-autofill:hover,
          input:-webkit-autofill:active,
          input:-webkit-autofill:focus {
@@ -189,9 +190,10 @@
           }
         </script>
 </head>
-<body>
+<body class="myBody">
 
 	<!-- Action attribute is the route on backend. Method is POST -->
+
     <form action='/add_client' class="add_client-style" method='post'>
 		<p id="add_client_title">Add a New Client</p>
 		<ul>
@@ -228,7 +230,3 @@
 	</form>
 </body>
 </html>
-        
-        
-
-        

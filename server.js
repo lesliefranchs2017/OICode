@@ -11,8 +11,8 @@ const config = require('./config');
 const { performance } = require('perf_hooks');
 
 // Set EJS as templating engine
-//app.set('view engine', 'html');
-//app.engine('html',require('ejs').renderFile);
+app.set('view engine', 'html');
+app.engine('html',require('ejs').renderFile);
 
 app.use(bodyParser.urlencoded({ // to support URL-encoded bodies
     extended: true
@@ -20,7 +20,7 @@ app.use(bodyParser.urlencoded({ // to support URL-encoded bodies
 
 //enabling css style sheet
 app.use(express.static(__dirname + '/public'));
-//app.set('views', __dirname + '/views');
+app.set('views', __dirname + '/public');
 
 
 var configs = {
@@ -137,6 +137,47 @@ addressOne_input, addressTwo_input, city_input, state_input, zip_input, county_i
 	return res.redirect('/public/success.html');
 });
 
+app.post('/pre_login', function(req, res) {
+
+
+      return res.render("login.html",{success: 'none'});
+
+  });
+
+app.post('/get_clients', function(req, res) {
+
+  client = new Client({
+      user:config.db.user,
+      host:config.db.host,
+      database:config.db.database,
+      password:config.db.password,
+      port:config.db.port,
+      ssl:config.db.ssl
+    })
+
+    client.connect()
+
+    client.query("SELECT name FROM client_table", function(err, results) {
+      if (err)
+      {
+          console.log(err);
+          client.end();
+      }
+      else{
+          //console.log(err,res)
+          console.log("Success! Client names sent!");
+          client.end();
+          }
+          console.log(results);
+
+      return res.render("edit_client.html",{names: results});
+
+  });
+
+});
+
+
+
 app.post('/login', function(req, res) {
 
   client = new Client({
@@ -167,7 +208,7 @@ app.post('/login', function(req, res) {
           var user_pass = req.body.pass_id;
           var emailBool = false;
           var passBool = false;
-          var success = false;
+          var success = "false";
 
         //  for loop is how you can step through the database per row
           for(let step = 0;step < results.rows.length; step++)
@@ -186,38 +227,26 @@ app.post('/login', function(req, res) {
 
           if(emailBool == true && passBool == true)
           {
-            success = true;
+            success = "true";
 
-          //  window.location.href="login_pin.html";
           }
           else{
-            success = false;
+            success = "false";
           }
 
       client.end();
 
-      if(success)
-      {
-        //res.send('<script>alert("Login Succesfull!")</script>');
-      res.redirect('/login_pin.html');
-      //res.send('<script>alert("Login Succesfull!")</script>');
-      //var data = 0;
-      //return res.sendFile('login_pin.html', { data: data });
-    //  return res.sendFile('login_pin.html');
+    if(success == "true")
+    {
+      return res.render("login_pin.html",{pin:user_pin, success: success});
 
+    }
 
-      }
-
-      else
-      {
-      //res.send('<script>alert("Login denied, re-enter email and password!")</script>');
-      return res.redirect('login.html');
-      }
-
-
+    if(success == "false")
+    {
+    //res.send('<script>alert("Login denied, re-enter email and password!")</script>');
+     return res.render("login.html",{success: success});
+     }
 
     });
   });
-
-
-

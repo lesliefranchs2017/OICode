@@ -83,7 +83,7 @@ function deleteLastElement()
 }
 function  checkPinNumber()
 {
-  var correctPinNumber = 3333;
+  var correctPinNumber = <%=pin%>;
 	//get values from doc.
 	var formArea= document.getElementById("formArea");
 	var errorArea = document.getElementById("errorMessage");
@@ -111,15 +111,15 @@ if( totalAttempts == 3)
 }
 function message()
 {
-  alert("login successfull, enter pin");
+  alert("login successfull, please enter your pin.");
 }
 </script>
 
 </head>
 
-<body>
-  <body onload="message()">
+<body class="myBody">
   <div class="pin">
+    <div class="myBody">
 
 
   <p>
@@ -148,6 +148,7 @@ function message()
 
 
     </div>
+  </div>
 
   <!--
   <div class="wrap">
@@ -156,6 +157,18 @@ function message()
   </div>
   </div>
   -->
+  <script type="text/javascript">
+
+window.onload = function(){
+setTimeout(()=>{
+    message();
+
+},15)
+
+}
+
+
+  </script>
 
 </body>
 </html>

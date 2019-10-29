@@ -1,36 +1,17 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 	<head>
 		<title> Signup Form </title>
 		<link rel="stylesheet" type="text/css" href="style.css">
 
-		<script src="jquery-1.12.4.js"></script>
-		<script>
-			function checkLogin() {
-				$.ajax({
-					type: 'GET',
-					url: 'http://localhost:3000/ajax_get_login',
-					dataType: 'json',
-					async: false
-				})
-				.done(function(success) {
-					if(success == true)
-					{
-						alert("Email and password accepted!");
-//						localStorage["e.key"] = user_email;
-						window.location.href="login_pin.html";
-					}
-					else{
-						alert("Email and password denied!");
-					}
-				})
-				.fail(function(jqXHR, testStatus, err) {
-					console.log('AJAX error response:', textStatus);
-				});
-			}
-			</script>
+
+
+
+
+
 
 	</head>
-	<body>
+	<body class="myBody">
 
 		<div class="login-page">
 		  <div class="form">
@@ -42,8 +23,56 @@
 					<p class="message">Forgot password? <a href="#">Retrieve password</a></p>
 
 		    </form>
+
+				<script>
+
+				function checkLogin()
+				{
+					var t = true;
+					var f = false;
+					var none = "none";
+
+					if(<%=success%> == t)
+					{
+					//	alert("Login successfull, please enter your pin number.");
+						window.location.href="login_pin.html";
+
+
+					}
+
+					if(<%=success%> == f)
+					{
+						alert("Login denied, incorrect credentials. Please try again.");
+					}
+
+
+					if(<%=success%> == none){}
+
+					else{}
+
+				}
+
+
+
+					</script>
+
+					<script type="text/javascript">
+
+    window.onload = function(){
+        setTimeout(()=>{
+            checkLogin();
+
+        },15)
+
+}
+
+
+					</script>
+
 		  </div>
 		</div>
 
+
 	</body>
+
 </html>
