@@ -165,7 +165,6 @@ app.post('/get_clients', function(req, res) {
           console.log("Success! Client names sent!");
           client.end();
           }
-          console.log(results);
 
       return res.render("edit_client.html",{names: results});
 
@@ -243,3 +242,40 @@ app.post('/login', function(req, res) {
 
     });
   });
+
+  app.post('/get_edit_client', function(req, res) {
+
+    var client_name = req.body.searchMe;
+
+    client = new Client({
+        user:config.db.user,
+        host:config.db.host,
+        database:config.db.database,
+        password:config.db.password,
+        port:config.db.port,
+        ssl:config.db.ssl
+      })
+
+      client.connect()
+
+      const getClient = 'SELECT *  FROM client_table WHERE name = $1'
+
+      client.query(getClient, [client_name], function(err,results){
+
+        if (err)
+        {
+            console.log(err);
+            client.end();
+        }
+        else{
+            //console.log(err,res)
+            console.log("Success! Client info sent!");
+            client.end();
+            }
+
+        return res.render("edit_selected_client.html",{client_info: results});
+
+
+    });
+  });
+
