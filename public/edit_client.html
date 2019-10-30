@@ -5,14 +5,8 @@
     <title> Edit Client </title>
 
     <link rel="stylesheet" type="text/css" href="style.css">
-
-
-
     <script src="jquery-1.12.4.js"></script>
-
-    <script>
     /*
-
       function getClients() {
         $.ajax({
           type: 'GET',
@@ -42,9 +36,6 @@
         });
       }
       */
-
-      </script>
-
       <script>
         function SetDate(){
         var date = new Date();
@@ -67,44 +58,7 @@
         }
         }
       </script>
-
-      <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
-      <script>
-$( function() {
-  var itemsArrray = [
-    {
-      value: "Item 1",
-      label: "Item 1",
-      company: "Company 1",
-      company_id: "cmp1"
-    },
-    {
-      value: "Item 2",
-      label: "Item 2",
-      company: "Company 2",
-      company_id: "cmp2"
-    },
-    {
-      value: "Item 3",
-      label: "Item 3",
-      company: "Company 3",
-      company_id: "cmp3"
-    }
-  ];
-  $(".inputitem").autocomplete({
-    //source: 'search.php',
-    source: itemsArrray,
-    minLength: 1,
-    select: function(event, ui) {
-      //Here $(this) points to the current autocomplete input element
-      //$(this).closest('li').find('input.company_name').val(ui.item.company);
-      //$(this).closest('tr').find('input.company_id').val(ui.item.company_id);
-    }
-  });
-} );
-</script>
-
+	
 <style>
    .add_client-style{
    max-width: 1200px;
@@ -265,35 +219,12 @@ $( function() {
  </style>
  <style>
 
-
-
-
 /*the container must be positioned relative:*/
 .autocomplete {
   position: relative;
   display: inline-block;
 }
-
-/*
-input {
-  border: 1px solid transparent;
-  background-color: #f1f1f1;
-  padding: 10px;
-  font-size: 16px;
-}
-
-input[type=text] {
-  background-color: #f1f1f1;
-  width: 100%;
-}
-
-input[type=submit] {
-  background-color: DodgerBlue;
-  color: #fff;
-  cursor: pointer;
-}
-*/
-
+	 
 .autocomplete-items {
   border: 1px solid #d4d4d4;
   border-bottom: none;
@@ -326,11 +257,8 @@ input[type=submit] {
 </head>
 
 <body class="myBody">
-<!--<body onload="getClients()"> -->
-
     <form action='' class="add_client-style" method='post' autocomplete="off">
-
-<div class="autocomplete"
+	<div class="autocomplete"
 		<p id="add_client_title">Edit Client</p>
 
 		<ul>
@@ -363,10 +291,10 @@ input[type=submit] {
 
       <li><input class="field-style field-full align-none" id="startDate" name="startDate" onblur="(this.value == '' ? this.type='text' : this.type='date')" onfocus="(this.type='date')" placeholder="Start Date" type="text"></li>
 
-<div class="toggleBox">
+	<div class="toggleBox">
             <li>Active Status &nbsp; <label class="switch"><input id="toggle" name="toggle" onclick="myToggleFunction()" type="checkbox"> <span class="slider round"></span></label></li>
-</div>
-<li></li>
+	</div>
+		<li></li>
 
 			<li><input style="width:110px" type="submit" value="Save"> <input style="width:110px" type="button" value="Undo"> <input style="width:110px" type="button" value="Cancel"></li>
 		</ul>
@@ -470,10 +398,7 @@ function autocomplete(inp, arr) {
       closeAllLists(e.target);
   });
 }
-
-
-/*An array containing all the country names in the world:*/
-//var name = <%=names %>
+	  
 var hello = "hello";
 var clientNames = <%- JSON.stringify(names) %>;
 var data = [];
@@ -483,20 +408,8 @@ for(let step = 0;step < clientNames.rows.length;step++)
   data[step] =clientNames.rows[step].name;
 }
 
-
-
-/*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
 //var data = <%- JSON.stringify(names) %>;
 autocomplete(document.getElementById("searchMe"), data);
 </script>
-
-<script>
-//var data = <%- JSON.stringify(names) %>;
-
-
-</script>
-
-
-
 </body>
 </html>
