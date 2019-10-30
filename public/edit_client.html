@@ -6,7 +6,7 @@
 
     <link rel="stylesheet" type="text/css" href="style.css">
     <script src="jquery-1.12.4.js"></script>
-    
+
       <script>
         function SetDate(){
         var date = new Date();
@@ -29,7 +29,7 @@
         }
         }
       </script>
-	
+
 <style>
    .add_client-style{
    max-width: 1200px;
@@ -187,17 +187,13 @@
    -webkit-box-shadow: 0 0 0 1000px white inset !important;
    -webkit-text-fill-color: #020202 !important;
   }
- </style>
- <style>
 
 /*the container must be positioned relative:*/
 .autocomplete {
-  position: relative;
-  display: inline-block;
 }
-	 
+
 .autocomplete-items {
-  border: 1px solid #d4d4d4;
+  border: .5px solid #d4d4d4;
   border-bottom: none;
   border-top: none;
   z-index: 99;
@@ -205,6 +201,9 @@
   top: 100%;
   left: 0;
   right: 0;
+  font-size: 80%;
+  width: 418px;
+
 }
 
 .autocomplete-items div {
@@ -227,17 +226,18 @@
 </style>
 </head>
 
-<body class="myBody">
-    <form action='' class="add_client-style" method='post' autocomplete="off">
-	<div class="autocomplete"
-	     <br>
+<body>
+    <form action='/get_edit_client' class="add_client-style" method='post' autocomplete="off">
+  <br>
 		<p id="add_client_title">Edit Client</p>
-
 		<ul>
 
-      <li><input class="field-style field-sized align-none inputitem" id="searchMe" autocomplete="off" placeholder="Enter clients name" type="text">
+      <li><input class="field-style field-sized align-none inputitem" id="searchMe" name="searchMe" autocomplete="off" placeholder="Enter clients name" type="text" style="width:418px;">
 
       <input class="SearchButton" style="width:110px" type="submit" value="Search"></li>
+
+      <div class="autocomplete">
+
 
       <li><input class="field-style field-full align-none" id="company" name="company" placeholder="Company Name" type="text"></li>
 
@@ -267,9 +267,10 @@
             <li>Active Status &nbsp; <label class="switch"><input id="toggle" name="toggle" onclick="myToggleFunction()" type="checkbox"> <span class="slider round"></span></label></li>
 	</div>
 		<li></li>
-
+     <div class="centerButtonsEditClient">
 			<li><input style="width:110px" type="submit" value="Save"> <input style="width:110px" type="button" value="Undo"> <input style="width:110px" type="button" value="Cancel"></li>
-		</ul>
+    </div>
+  	</ul>
 	</form>
 </div>
 
@@ -370,14 +371,14 @@ function autocomplete(inp, arr) {
       closeAllLists(e.target);
   });
 }
-	  
+
 var hello = "hello";
 var clientNames = <%- JSON.stringify(names) %>;
 var data = [];
 
 for(let step = 0;step < clientNames.rows.length;step++)
 {
-  data[step] =clientNames.rows[step].name;
+  data[step] = clientNames.rows[step].name;
 }
 
 //var data = <%- JSON.stringify(names) %>;
@@ -385,3 +386,4 @@ autocomplete(document.getElementById("searchMe"), data);
 </script>
 </body>
 </html>
+
