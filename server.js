@@ -13,7 +13,6 @@ const { performance } = require('perf_hooks');
 // Set EJS as templating engine
 app.set('view engine', 'html');
 app.engine('html',require('ejs').renderFile);
-
 app.use(bodyParser.urlencoded({ // to support URL-encoded bodies
     extended: true
 }));
@@ -171,7 +170,6 @@ app.post('/get_clients', function(req, res) {
       return res.render("edit_client.html",{names: results});
 
   });
-
 });
 
 app.post('/login', function(req, res) {
@@ -186,7 +184,6 @@ app.post('/login', function(req, res) {
     })
 
     client.connect()
-
     client.query("SELECT email, password, pin, access_rights, name FROM login_table", function(err, results) {
       if (err)
       {
