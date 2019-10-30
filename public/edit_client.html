@@ -6,36 +6,7 @@
 
     <link rel="stylesheet" type="text/css" href="style.css">
     <script src="jquery-1.12.4.js"></script>
-    /*
-      function getClients() {
-        $.ajax({
-          type: 'GET',
-          url: 'http://localhost:3000/ajax_get_clients',
-          dataType: 'json',
-          async: false
-        })
-        .done(function(result) {
-        //  for loop is how you can step through the database per row
-        //  for(let step = 0;step < result.rows.length;step++)
-        document.getElementById('company').value = result.rows[0].name;
-        document.getElementById('name').value = result.rows[0].company;
-        document.getElementById('email').value = result.rows[0].email;
-        document.getElementById('phone').value = result.rows[0].phone;
-        document.getElementById('phoneType').value = result.rows[0].phone_type;
-        document.getElementById('addressOne').value = result.rows[0].address_one;
-        document.getElementById('addressTwo').value = result.rows[0].address_two;
-        document.getElementById('city').value = result.rows[0].city;
-        document.getElementById('state').value = result.rows[0].state;
-        document.getElementById('zip').value = result.rows[0].zip;
-        document.getElementById('county').value = result.rows[0].county;
-        document.getElementById('startDate').value = result.rows[0].start_date;
-        //document.getElementById('toggle').value = result.rows[0].address_two;
-        })
-        .fail(function(jqXHR, testStatus, err) {
-          console.log('AJAX error response:', textStatus);
-        });
-      }
-      */
+    
       <script>
         function SetDate(){
         var date = new Date();
@@ -259,6 +230,7 @@
 <body class="myBody">
     <form action='' class="add_client-style" method='post' autocomplete="off">
 	<div class="autocomplete"
+	     <br>
 		<p id="add_client_title">Edit Client</p>
 
 		<ul>
