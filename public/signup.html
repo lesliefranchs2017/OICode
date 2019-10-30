@@ -2,13 +2,10 @@
 	<head>
 		<title> Signup Form </title>
 		
-				
-		<!-- Including Custom css -->
         <link rel="stylesheet" type="text/css" href="style.css">
         
         <script language="JavaScript" type="text/javascript">
             
-          
            function checkform (form)
            {
                /* isEmpty() returns true and alerts the user if they left a field empty */
@@ -22,7 +19,6 @@
                    return false;
                    }
                }
-    
                /* charCheck() returns false and alerts the user if they used any non-alphanumeric characters */
                function charCheck(fix)
                {
@@ -56,34 +52,23 @@
     
                return true ;
            }
-            </script>
-		
-	</head>
-	<body>
-	
-		<br>
-		<br>
-		<br>
-		<div class="container" >
+            </script>		
+             </head>
+	    <body>
+		<br><br><br>	    
+		     <div class="container" >
 			<div class="row">
-				
-				<div class="col-md-6 main">
+			  <div class="col-md-6 main">
 					<!-- Action attribute is the route on backend. Method is POST -->
-                    <form id='frmSignIn' name='frmSignIn' action='/sign_up' method='post' onsubmit='return checkform(this);'>
-						<h1> Login </h1>
-								
-						<input class="box" type="email" name="email" id="email" placeholder="Enter your E-Mail " required /><br>
-							
-                        <input class="box" type="password" name="password" id="password"  placeholder="Enter your Password " required/><br>
-                                 
-						<br>
-						<input type="submit" id="submitDetails"  name="submitDetails" value="Submit" /><br>
-					
-					</form>
-					
-				</div>
-				
-			</div>
+                           <form id='frmSignIn' name='frmSignIn' action='/sign_up' method='post' onsubmit='return checkform(this);'>
+				<h1> Login </h1>						
+				<input class="box" type="email" name="email" id="email" placeholder="Enter your E-Mail " required /><br>				
+                                <input class="box" type="password" name="password" id="password"  placeholder="Enter your Password " required/><br>         
+				<br>
+				<input type="submit" id="submitDetails"  name="submitDetails" value="Submit" /><br>				
+			   </form>				
+			</div>			
+		     </div>
 		</div>
-	</body>
+	   </body>
 </html>							
