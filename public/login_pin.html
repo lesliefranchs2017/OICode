@@ -2,69 +2,10 @@
 <html lang="en">
   <head>
     <link rel="stylesheet" type="text/css" href="style.css">
-
      <meta charset="UTF-8">
      <title>Pin authentication</title>
-
-<!-- Temporary css
-<style>
-body {
-  border-color: solid blue;
-  vertical-align: middle;
-  padding: 20px;
-            margin: 70px auto;
-            text-align: center;
-}
-.numberButtons
-{
-width: 60px;
-display: inline-block;
-font-size: 30px;
-margin-right: .5%;
-margin-left: .5%;
-margin-top: .5%;
-margin-bottom: .5%;
-border-color:#000;
-background-color: #D3D3D4;
-    -webkit-border-radius: .3em;
-    -moz-border-radius: .3em;
-    border-radius: .3em;
-    font-family: Verdana, arial, sans-serif;
-border: solid black;
-border-width: 2px;
-}
-.placeholder_pin {
-    text-align: center;
-    font-size: 30px;
-    border-color:#000;
-    border-width: 2px;
-    margin-bottom: 10px;
-    font-family: Verdana, arial, sans-serif;
-}
-.reset_button{
-  border-color:#000;
-      -webkit-border-radius: .3em;
-      -moz-border-radius: .3em;
-      border-radius: .3em;
-      font-size: 30px;
-      background-color: #D3D3D3;
-      font-family: Verdana, arial, sans-serif;
-}
-.clearButton{
-}
-.check{
-  background-color: #7CFC00;
-}
-.backspace{
-  background-color: red;
-}
-</style>
--->
-
-
 <script>
-//CONFIG:
-//OTHER
+	
 var totalAttempts = 0;
 function addNumber(value)
 {
@@ -97,16 +38,16 @@ if (pinNumber == correctPinNumber)
 }
 else
 {
-	alert("Incorrect Pin, please try again");
-	clearPad()
+  alert("Incorrect Pin, please try again");
+  clearPad()
 }
 //add one more access attempt;
 totalAttempts++;
 if( totalAttempts == 3)
 {
-	formArea.style.display = "none";
-	errorArea.innerHTML = "Too many attempts.. sorry.";
-	clearPad()
+   formArea.style.display = "none";
+   errorArea.innerHTML = "Too many attempts.. sorry.";
+   clearPad()
 }
 }
 function message()
@@ -120,8 +61,6 @@ function message()
 <body class="myBody">
   <div class="pin">
     <div class="myBody">
-
-
   <p>
     <input type="text" class="placeholder_pin"name="pinNumber" placeholder="Enter PIN" id="pinNumber" style="width:197px"/>
     <br />
@@ -141,34 +80,17 @@ function message()
     <input type="button" class="numberButtons"  value="0" onclick="addNumber(this.value)" />
     <input type="button" alt="submit" value = "✓" class="checkmark"   onclick="checkPinNumber()" />
   </p>
-
-
+	    
     <input type="submit" name="pinButton" class="reset_button clearButton" id="pinButton" value="Reset" onclick="clearPad()" style="width:197px" />
-
-
 
     </div>
   </div>
-
-  <!--
-  <div class="wrap">
-<div class="add_client-style">
-  <input type="submit" id="submitDetails"  name="submitDetails" value="submit" onclick="location.href='pos.html';" /><br>
-  </div>
-  </div>
-  -->
   <script type="text/javascript">
-
-window.onload = function(){
-setTimeout(()=>{
-    message();
-
-},15)
-
-}
-
-
+	window.onload = function(){
+	setTimeout(()=>{
+    	message();
+	},15)
+	}
   </script>
-
 </body>
 </html>
