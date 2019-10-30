@@ -3,16 +3,8 @@
 	<head>
 		<title> Signup Form </title>
 		<link rel="stylesheet" type="text/css" href="style.css">
-
-
-
-
-
-
-
 	</head>
 	<body class="myBody">
-
 		<div class="login-page">
 		  <div class="form">
 		    <form class="login-form" id='log_form' action='/login' method='POST'>
@@ -23,56 +15,33 @@
 					<p class="message">Forgot password? <a href="#">Retrieve password</a></p>
 
 		    </form>
-
-				<script>
-
+			<script>
 				function checkLogin()
 				{
 					var t = true;
 					var f = false;
 					var none = "none";
-
 					if(<%=success%> == t)
 					{
-					//	alert("Login successfull, please enter your pin number.");
 						window.location.href="login_pin.html";
-
-
 					}
-
 					if(<%=success%> == f)
 					{
 						alert("Login denied, incorrect credentials. Please try again.");
 					}
-
-
 					if(<%=success%> == none){}
-
 					else{}
-
 				}
+				</script>
+				<script type="text/javascript">
 
-
-
-					</script>
-
-					<script type="text/javascript">
-
-    window.onload = function(){
-        setTimeout(()=>{
-            checkLogin();
-
-        },15)
-
-}
-
-
-					</script>
-
+    					window.onload = function(){
+      					setTimeout(()=>{
+         				checkLogin();
+     					 },15)
+					 }
+			</script>
 		  </div>
 		</div>
-
-
 	</body>
-
 </html>
