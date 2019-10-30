@@ -10,10 +10,9 @@
 		    <form class="login-form" id='log_form' action='/login' method='POST'>
 		      <input type="email" id="email_id" name="email_id" placeholder="Email" required/>
 		      <input type="password" id="pass_id" name="pass_id" placeholder="Password" required/>
-					<input type="submit" class="login_button" value="Login" />
+		      <input type="submit" class="login_button" value="Login" />
 		      <p class="message">Not registered? <a href="#">Create an account</a></p>
-					<p class="message">Forgot password? <a href="#">Retrieve password</a></p>
-
+		      <p class="message">Forgot password? <a href="#">Retrieve password</a></p>
 		    </form>
 			<script>
 				function checkLogin()
@@ -33,8 +32,7 @@
 					else{}
 				}
 				</script>
-				<script type="text/javascript">
-
+				   <script type="text/javascript">
     					window.onload = function(){
       					setTimeout(()=>{
          				checkLogin();
