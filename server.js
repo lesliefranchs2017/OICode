@@ -22,7 +22,6 @@ app.use(bodyParser.urlencoded({ // to support URL-encoded bodies
 app.use(express.static(__dirname + '/public'));
 app.set('views', __dirname + '/public');
 
-
 var configs = {
     user:config.db.user,
     host:config.db.host,
@@ -67,9 +66,8 @@ function primary_key_generator(){
     ).toString(36);
 }
 
-    //recieve request from the front end and store it into the database
+ //recieve request from the front end and store it into the database
 app.post('/add_client' , function(req,res){
-
     var company_input = req.body.company;
     var clientName_input = req.body.name;
     var email_input = req.body.email;
@@ -175,8 +173,6 @@ app.post('/get_clients', function(req, res) {
   });
 
 });
-
-
 
 app.post('/login', function(req, res) {
 
