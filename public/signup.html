@@ -1,0 +1,73 @@
+<html>
+      <head>
+	   <title> Signup Form </title>	
+        <link rel="stylesheet" type="text/css" href="style.css">
+      
+        <script language="JavaScript" type="text/javascript">
+            
+           function checkform (form)
+           {
+               /* isEmpty() returns true and alerts the user if they left a field empty */
+               function isEmpty (fix, called)
+               {
+                   if (fix=="")
+                   {
+                   alert("Please enter " + called);
+                   return true;
+                   } else {
+                   return false;
+                   }
+               }
+               /* charCheck() returns false and alerts the user if they used any non-alphanumeric characters */
+               function charCheck(fix)
+               {
+                   var validchars = '@-_.0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                   if(isValid(fix,validchars))
+                   {
+                       return true;
+                   } else {
+                       alert("Please use only letters or numbers in this field");
+                       return false;
+                   }
+               }
+    
+               /* isValid is used by the charCheck() function to look through each 'validchars' one at a time */
+               function isValid(string,validchars)
+               {
+                   for (var i=0; i< string.length; i++)
+                   {
+                   if (validchars.indexOf(string.charAt(i)) === -1) {return false;}
+                   }
+                   return true;
+               }
+    
+               // Check for empty fields
+               if (is_empty (form.t_email.value,"your email address")) { form.t_email.focus();  return false;}
+               if (is_empty (form.t_password.value,"your password")) { form.t_password.focus();  return false;}
+    
+               //check for weird chars
+               if (charCheck(form.t_email.value)===false) {form.t_email.focus(); return false;}
+               if (charCheck(form.t_password.value)===false) {form.t_password.focus(); return false;}
+    
+               return true ;
+           }
+            </script>		
+             </head>
+	        <body>
+		<br><br><br>	    
+		     <div class="container" >
+			<div class="row">
+			  <div class="col-md-6 main">
+					<!-- Action attribute is the route on backend. Method is POST -->
+                           <form id='frmSignIn' name='frmSignIn' action='/sign_up' method='post' onsubmit='return checkform(this);'>
+				<h1> Login </h1>						
+				<input class="box" type="email" name="email" id="email" placeholder="Enter your E-Mail " required /><br>				
+                                <input class="box" type="password" name="password" id="password"  placeholder="Enter your Password " required/><br>         
+				<br>
+				<input type="submit" id="submitDetails"  name="submitDetails" value="Submit" /><br>				
+			   </form>				
+			</div>			
+		     </div>
+	           </div>
+	        </body>
+</html>							

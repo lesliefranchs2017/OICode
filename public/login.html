@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title> Login </title>
+		<link rel="stylesheet" type="text/css" href="style.css">
+	</head>
+	<body class="myBody">
+		<div class="login-page">
+		  <div class="form">
+		    <form class="login-form" id='log_form' action='/login' method='POST'>
+		      <input type="email" id="email_id" name="email_id" placeholder="Email" required/>
+		      <input type="password" id="pass_id" name="pass_id" placeholder="Password" required/>
+		      <input type="submit" class="login_button" value="Login" />
+		      <p class="message">Not registered? <a href="#">Create an account</a></p>
+		      <p class="message">Forgot password? <a href="#">Retrieve password</a></p>
+		    </form>
+			<script>
+				function checkLogin()
+				{
+					var t = true;
+					var f = false;
+					var none = "none";
+					if(<%=success%> == t)
+					{
+						window.location.href="login_pin.html";
+					}
+					if(<%=success%> == f)
+					{
+						alert("Login denied, incorrect credentials. Please try again.");
+					}
+					if(<%=success%> == none){}
+					else{}
+				}
+				</script>
+				   <script type="text/javascript">
+    					window.onload = function(){
+      					setTimeout(()=>{
+         				checkLogin();
+     					 },15)
+					 }
+			</script>
+		  </div>
+		</div>
+	</body>
+</html>

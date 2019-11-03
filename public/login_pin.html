@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" type="text/css" href="style.css">
+     <meta charset="UTF-8">
+     <title>Pin authentication</title>
+<script>
+	
+var totalAttempts = 0;
+function addNumber(value)
+{
+	var pin = document.getElementById("pinNumber");
+	pin.value += value;
+}
+function clearPad()
+{
+	document.getElementById("pinNumber").value = "";
+}
+function deleteLastElement()
+{
+  let str = document.getElementById("pinNumber").value;
+  str = str.substring(0, str.length - 1);
+  document.getElementById("pinNumber").value = str;
+}
+function  checkPinNumber()
+{
+  var correctPinNumber = <%=pin%>;
+	//get values from doc.
+	var formArea= document.getElementById("formArea");
+	var errorArea = document.getElementById("errorMessage");
+	var pinNumber = document.getElementById("pinNumber").value;
+//validate PIN.
+if (pinNumber == correctPinNumber)
+{
+  alert("Pin accepted!");
+  window.location="pos.html";
+	return;
+}
+else
+{
+  alert("Incorrect Pin, please try again");
+  clearPad()
+}
+//add one more access attempt;
+totalAttempts++;
+if( totalAttempts == 3)
+{
+   formArea.style.display = "none";
+   errorArea.innerHTML = "Too many attempts.. sorry.";
+   clearPad()
+}
+}
+function message()
+{
+  alert("login successfull, please enter your pin.");
+}
+</script>
+
+</head>
+
+<body class="myBody">
+  <div class="pin">
+    <div class="myBody">
+  <p>
+    <input type="text" class="placeholder_pin"name="pinNumber" placeholder="Enter PIN" id="pinNumber" style="width:197px"/>
+    <br />
+    <input type="button" class="numberButtons one"   value="1" onclick="addNumber(this.value)"  />
+    <input type="button" class="numberButtons"  value="2" onclick="addNumber(this.value)" />
+    <input type="button" class="numberButtons"  value="3" onclick="addNumber(this.value)" />
+    <br />
+    <input type="button" class="numberButtons"  value="4" onclick="addNumber(this.value)" />
+    <input type="button" class="numberButtons"  value="5" onclick="addNumber(this.value)" />
+    <input type="button" class="numberButtons"  value="6" onclick="addNumber(this.value)" />
+    <br />
+    <input type="button" class="numberButtons"  value="7" onclick="addNumber(this.value)" />
+    <input type="button" class="numberButtons"  value="8" onclick="addNumber(this.value)" />
+    <input type="button" class="numberButtons"  value="9" onclick="addNumber(this.value)" />
+    <br />
+    <input type="button" class="backspace"  value="⌫" onclick="deleteLastElement()" />
+    <input type="button" class="numberButtons"  value="0" onclick="addNumber(this.value)" />
+    <input type="button" alt="submit" value = "✓" class="checkmark"   onclick="checkPinNumber()" />
+  </p>
+	    
+    <input type="submit" name="pinButton" class="reset_button clearButton" id="pinButton" value="Reset" onclick="clearPad()" style="width:197px" />
+
+    </div>
+  </div>
+  <script type="text/javascript">
+	window.onload = function(){
+	setTimeout(()=>{
+    	message();
+	},15)
+	}
+  </script>
+</body>
+</html>
