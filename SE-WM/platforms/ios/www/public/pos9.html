@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <!--
     Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
@@ -28,11 +28,13 @@
             * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
                 * Enable inline JS: add 'unsafe-inline' to default-src
         -->
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
+        <!-- FOR SOME REASON THESE META TAGS BELOW WERE MESSING UP THE SCRIPT TAGS?!?!?!?!?!-->
+       <!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
-        <link rel="stylesheet" type="text/css" href="index.css">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">-->
+        <link rel="stylesheet" href="index.css">
+        <link rel="stylesheet" href="signature-pad.css">
         <title>Ticket Taker Beta</title>
     </head>
     <body>
@@ -43,13 +45,24 @@
                 <p class="event received">Device is Ready</p>
             </div>
         </div>-->
+
+        <!-- two divs blocks next to eachother to fit everything on one screen (review on left, notes and next on right) -->
+        <div style='display:block;'><h1>Ticket Taker Beta</h1></div>
         <div>
-            <h1>Ticket Taker Beta</h1><br><br>
-            <form style='text-align:center;' action='/index' method='POST'>
-                <button class='start'><span>Start Ticket    </span></button>
-            </form>
+            <br><br><br><h1>Your ticket has been completed.</h1>
+            <h2>You will be redirected to the Ticketing System Index in <span id='time'>10</span></h2>
         </div>
-        <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>       
+        <script>
+            var time = 9;
+            setInterval(Timer, 1000);
+
+            function Timer() {
+                document.getElementById('time').innerHTML = time;
+                time--;
+                if (time == 0) location.replace("./index.html");
+            }
+        </script>
+        <!--<script src="../cordova.js"></script>
+        <script src="../js/index.js"></script>-->
     </body>
 </html>

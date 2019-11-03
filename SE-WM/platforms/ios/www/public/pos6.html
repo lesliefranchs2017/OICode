@@ -62,11 +62,12 @@
                 </select>
                 <select id = 'select'>
                     <option value=''>Select</option>
-                    <option value='production'>Production</option>
-                    <option value='flow back'>Flow Back</option>
+                    <option id = 'o1' value=''></option>
+                    <option id = 'o2' value=''></option>
+                    <option value='other'>Other</option>
                 </select>
                 <input type='text' id='text' placeholder=''>
-                <input type='button' value='Add' onclick='addBlock()'>
+                <input type='button' value='Add' onclick='isNumber()'>
                 <p><b>Totals: </b><span id='totals'>0</span></p><br>
                 <input type='text' id='mat' name='mat' style='visibility: hidden; display:inline-block; width:30%;'>
                 <input type='text' id='matType' name='matType' style='visibility: hidden; display:inline-block; width:30%;'>
@@ -77,20 +78,38 @@
         <script>
             setInterval(changePlaceholder, 100);
 
-            function changePlaceholder() {
+            function changePlaceholder() { //EMAIL ABOUT OTHER
                 var material = document.getElementById('material')
                 var mat = material.options[material.selectedIndex].text;
                 switch(mat) {
                     case "Water":
                         document.getElementById('text').placeholder = "1 bbl - 150 bbls";
+                        document.getElementById('o1').innerHTML = "Production";
+                        document.getElementById('o1').value = "production";
+                        document.getElementById('o2').innerHTML = "Flow Back";
+                        document.getElementById('o2').value = "flow back";
                         break;
                     case "Solids":
                         document.getElementById('text').placeholder = "1 yard - 25 yards";
+                        document.getElementById('o1').innerHTML = "Drill Cuttings";
+                        document.getElementById('o1').value = "drill cuttings";
+                        document.getElementById('o2').innerHTML = "Filter Cake";
+                        document.getElementById('o2').value = "filter cake";
                         break;
                     case "Wet Solids":
                         document.getElementById('text').placeholder = "5 bbls - 150 bbls";
+                        document.getElementById('o1').innerHTML = "Tank Bottoms";
+                        document.getElementById('o1').value = "tank bottoms";
+                        document.getElementById('o2').innerHTML = "Heavy Liquids";
+                        document.getElementById('o2').value = "heavy liquids";
                         break;
                 }
+            }
+
+            function isNumber(){
+                var isNum = document.getElementById('text').value;
+                if (isNaN(isNum)) alert("You need to enter a number. Please enter a number and try again.");
+                else addBlock();
             }
 
             function addBlock(){
