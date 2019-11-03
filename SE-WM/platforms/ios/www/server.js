@@ -43,7 +43,7 @@ app.get('/',function(req,res){
 		'Access-Control-Allow-Origin' : '*' // creates access from any orgin
 	});
 	return res.redirect('public/index.html');
-}).listen(process.env.PORT || 3000);
+}).listen(3000);
 
 console.log("Server listening at : 3000");
 app.use('/public', express.static(__dirname + '/public'));
@@ -53,18 +53,50 @@ app.use(bodyParser.text({ type: 'text/html' }))
 app.use(bodyParser.text({ type: 'text/xml' }))
 
 function primary_key_generator(){ 
-    var ret = Math.round(((Math.random()*100000)/25)*Math.sin(3));
-    newTicketID = ret; 
-    return (
-        ret
-        //Number(String(Math.random()).slice(2)) + 
-      //Date.now() + 
-      //Math.round(performance.now())
-    );
+    key = generateKey();
+    if (!checkIfIDInTable(key)) key = primary_key_generator();
+    return key;
 }
 
+function generateKey(){
+    var ret = Math.round(((Math.random()*100000)/15)*Math.sin(3));
+    newTicketID = ret; 
+    return ret;
+}
 
-app.post('/index' , function(req,res){ // currently does not generate another id if id generated is already taken, resulting in termination of server. FIX HERE
+function checkIfIDInTable(ticket_id){
+    const client = new Client({
+        user:config.db.user,
+        host:config.db.host,
+        database:config.db.database,
+        password:config.db.password,
+        port:config.db.port,
+        ssl:config.db.ssl  
+    })
+
+    client.connect()
+
+    var rows = 0;
+    var txt = 'SELECT ticket_id FROM ticket_table WHERE ticket_id = $1';
+    client.query(txt, [ticket_id],(err,res)=>{
+        
+        if (err)
+        {
+            console.log(err);
+            client.end();
+            res.status(400).send(err);
+        } else {
+            console.log(err, res);
+            console.log(res.rowCount);
+            rows = res.rowCount;
+            client.end();
+        }
+    });
+
+    return rows == 0;
+}
+
+app.post('/index' , function(req,res){  // still broken :((((
 
     var ticket_id = primary_key_generator();
 
@@ -77,32 +109,40 @@ app.post('/index' , function(req,res){ // currently does not generate another id
         ssl:config.db.ssl  
     })
 
-  
     client.connect()
 
-    const insertText = 'INSERT INTO ticket_table (ticket_id, gas_company, truck_company, driver_name, truck_number, trailer_number, material_location,\
-                        water_type, water_total, solid_type, solid_total, wet_type, wet_total, ticket_notes, signature, date) VALUES ($1, $2, $3, $4, $5, $6,\
-                        $7, $8, $9, $10, $11, $12, $13, $14, $15, $16)'
-            
-    client.query(insertText, [ticket_id, "", "", "", "", "", "", "", 0, "", 0, "", 0, "", "", "2000-08-08"],(err,res)=>{
+    //var wrongID = true;
 
-        if (err)
-        {
-            console.log(err);
-            client.end();
-            res.status(400).send(err);
-        }
-        else{
-            console.log(err,res)
-            console.log("DATA was succesfully inputed into database ");//+ JSON.stringify(data) );    
-            client.end();
-        }
-    })
-  
-	res.set({
-		'Access-Control-Allow-Origin' : '*'
-	});
-	return res.redirect('/pos1.html');  
+    //while(wrongID) {
+
+        //var r = checkRows(ticket_id);
+        //if (r == 0) {
+            //wrongID = false;
+            const insertText = 'INSERT INTO ticket_table (ticket_id, gas_company, truck_company, driver_name, truck_number, trailer_number, material_location,\
+                                water_type, water_total, solid_type, solid_total, wet_type, wet_total, ticket_notes, signature, date) VALUES ($1, $2, $3, $4, $5, $6,\
+                                $7, $8, $9, $10, $11, $12, $13, $14, $15, $16)'
+    
+            client.query(insertText, [ticket_id, "", "", "", "", "", "", "", 0, "", 0, "", 0, "", "", "2000-08-08"],(err,res)=>{
+
+                if (err)
+                {
+                    console.log(err);
+                    client.end();
+                    res.status(400).send(err);
+                }else{
+                    console.log(err,res)
+                    console.log("DATA was succesfully inputed into database ");//+ JSON.stringify(data) );    
+                    client.end();
+                }
+            })
+
+            res.set({
+                'Access-Control-Allow-Origin' : '*'
+            });
+            return res.redirect('/pos1.html');  
+        //}
+        //else {ticket_id = primary_key_generator();}
+    //}
 });
 
 app.post('/pos1' , function(req,res){
@@ -436,7 +476,7 @@ app.post('/pos8' , function(req,res){
 	res.set({
 		'Access-Control-Allow-Origin' : '*'
 	});
-	return res.redirect('/index.html');  
+	return res.redirect('/pos9.html');  
 });
 
 // get function that will show data from database
