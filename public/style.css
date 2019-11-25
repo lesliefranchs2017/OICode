@@ -127,6 +127,14 @@ body.myBody {
   text-align: center;
 }
 
+.centerButtonsEditClient{
+  text-align: center;
+  display: inline-block;
+  border-radius: 5px;
+
+
+}
+
 .wrapMain {
   text-align: center;
 }
