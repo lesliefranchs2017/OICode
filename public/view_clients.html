@@ -69,11 +69,15 @@ function addField(comp, email, startDate, nThis, size){
 	{
 	location.href='pos.html';
 	document.getElementById("key").value = comp;
-  document.getElementById('client').action = './delete_client'; //Will set it
-  document.getElementById("client").submit();
+        document.getElementById('client').action = './delete_client'; //Will set it
+        document.getElementById("client").submit();
 	}
 
-	else {}
+	else
+	{
+          document.getElementById('client').action = './view_clients'; //Will set it
+	  document.getElementById("client").submit();
+	}
   };
 
 	cell2.appendChild(button);
