@@ -1,21 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="utf-8">
-	<title>Edit Client</title>
-	<link href="style.css" rel="stylesheet" type="text/css">
-	<script>
+<meta charset="utf-8">
+<title>Edit Client</title>
+<link href="style.css" rel="stylesheet" type="text/css">
 
-	var size = <%= results.rows.length %>;
-	<% var clickedArr = new Array(); %>
+<script>
+var size = <%= results.rows.length %>;
+var clickedArr = new Array(size);
 
-<% for(var i=0; i<results.rows.length; i++) { %>
-
-		<% clickedArr.push({ index: i, name: results.rows[i].company }); %>
-<%	} %>
-
-
-
+for(var i=0; i<size; i++)
+ {
+		clickedArr[i] = 0;
+ }
 
 function myFunction() {
   // Declare variables
@@ -26,8 +23,6 @@ function myFunction() {
   tr = table.getElementsByTagName("tr");
 
   // Loop through all table rows, and hide those who don't match the search query
-
-
   for (i = 0; i < tr.length; i++) {
     td = tr[i].getElementsByTagName("td")[0];
     if (td) {
@@ -42,21 +37,17 @@ function myFunction() {
 }
 
 function submitForm(comp){
-document.getElementById("key").value = comp;
-document.getElementById("editSelectedForm").submit();
-
+	document.getElementById("key").value = comp;
+	document.getElementById("client").submit();
 }
 
 function addField(comp, email, startDate, nThis, size){
 	//var clickedArr[size];
-	//var index = nThis.parentNode.parentNode.rowIndex
+	var index = nThis.parentNode.parentNode.rowIndex
 	var table = document.getElementById("myTable");
-	alert(<%=clickedArr[0].name%>);
 
-/*
 	if(clickedArr[index - 1]==0)
-	{ // Will alert the actual element clicked.
-//	alert(event.target.id); // Will alert the actual element clicked.
+  {
   var row = table.insertRow(index+1);
   var cell1 = row.insertCell(0);
 	var cell2 = row.insertCell(1);
@@ -70,40 +61,37 @@ function addField(comp, email, startDate, nThis, size){
 	button.class= "removeBtn";
   button.innerHTML = "Remove";
 	button.style = "background-color: red;font: 14px sans-serif,Arial, Helvetica; border-radius: 4px; color: #FFFFFF;padding: 5px 7px;";
+	button.onclick = function() {
 
+	var answer = window.confirm("Are you sure you want to delete " + comp + " as a client?");
 
-	button.onclick = function() { // Note this is a function
-  alert("blabla");
+	if (answer)
+	{
+	location.href='pos.html';
+	document.getElementById("key").value = comp;
+  document.getElementById('client').action = './delete_client'; //Will set it
+  document.getElementById("client").submit();
+	}
+
+	else {}
   };
 
 	cell2.appendChild(button);
 	clickedArr[index - 1] = 1;
-	//button.onclick = removeFunction();
 	}
 	else if(clickedArr[index-1] == 1) {
 
 	clickedArr[index - 1] = 0;
 	document.getElementById("myTable").deleteRow(index + 1);
 	}
-  	//document.getElementById("myTable").deleteRow(index);
-		//row.deleteCell(0);
-  //}
-
-
 }
-*/
-}
-
 
 function areYouSureReturn(){
 	var answer = window.confirm("Return home?");
           if (answer) {
             location.href='pos.html';
           }
-          else {
-
-            //document.getElementById('addClient').action = ; //Will set it
-          }
+          else {}
 }
 </script>
 	<style>
@@ -126,7 +114,6 @@ function areYouSureReturn(){
   border: 1px solid #ddd; /* Add a grey border */
   font-size: 17px; /* Increase font-size */
 	background-color: #EBF4FA;
-
 }
 
 #myTable th, #myTable td {
@@ -264,6 +251,7 @@ function areYouSureReturn(){
 	  -webkit-transition: .4s;
 	  transition: .4s;
 	  }
+
 	  .slider:before {
 	  position: absolute;
 	  content: "";
@@ -275,12 +263,15 @@ function areYouSureReturn(){
 	  -webkit-transition: .4s;
 	  transition: .4s;
 	  }
+
 	  input:checked + .slider {
 	  background-color: rgb(26, 101, 241);
 	  }
+
 	  input:focus + .slider {
 	  box-shadow: 0 0 1px #2196F3;
 	  }
+
 	  input:checked + .slider:before {
 	  -webkit-transform: translateX(67px);
 	  -ms-transform: translateX(67px);
@@ -296,6 +287,7 @@ function areYouSureReturn(){
 	  .toggleBox{
 	    float: left;
 	  }
+
 	  input:-webkit-autofill,
 	  input:-webkit-autofill:hover,
 	  input:-webkit-autofill:active,
@@ -305,10 +297,6 @@ function areYouSureReturn(){
 	  -webkit-box-shadow: 0 0 0 1000px white inset !important;
 	  -webkit-text-fill-color: #020202 !important;
 	 }
-
-	/*the container must be positioned relative:*/
-	.autocomplete {
-	}
 
 	.autocomplete-items {
 	 border: .5px solid #d4d4d4;
@@ -340,7 +328,6 @@ function areYouSureReturn(){
 	 background-color: DodgerBlue !important;
 	 color: #ffffff;
 	}
-
 
 	.phoneLabel{
 	 margin-left: 555px;
@@ -380,14 +367,12 @@ function areYouSureReturn(){
     text-decoration: none;
     text-align: center;
 		border-radius: 4px;
-
   }
 
 	.addButtonView{
     cursor: pointer;
     color: #FFFFFF;
     padding:7px;
-
 		margin-top: 10px;
 		margin-bottom: 10px;
     text-decoration: none;
@@ -398,11 +383,10 @@ function areYouSureReturn(){
 	  background-size: 100%;
 		height: 45px;
 		border-radius: 50%;
-
 	}
 
   .moreButtonView{
-    background-color: #4166f5;
+    background-color: #3080FA;
     cursor: pointer;
     color: #FFFFFF;
     padding: 5px 7px;
@@ -424,8 +408,6 @@ function areYouSureReturn(){
     text-decoration: none;
     text-align: center;
 		border-radius: 4px;
-
-
   }
 
   .keyInput{
@@ -437,7 +419,7 @@ function areYouSureReturn(){
 </head>
 
 <body>
-    <form action='/get_edit_client' id="editSelectedForm" name="editSelectedForm" autocomplete="off" class="add_client-style" method='post'>
+    <form action='/get_edit_client' id="client" name="client" autocomplete="off" class="add_client-style" method='post'>
 			<input style="width:45px" class="addButtonView" type="button" onclick="location.href='add_client.html';" value="">
 
         <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for companies..">
@@ -474,10 +456,49 @@ function areYouSureReturn(){
 
                     </div>
                 </tr>
-                <% } %>
+
+								<script>
+
+								//var active = <%=results.rows[i].company_status%>;
+							//	if(active == false)
+							//	{
+									//document.getElementById('myTable').style.background= "red";
+
+								//	this.parentNode.style.backgroundColor = "blue";
+
+						/*		var x = document.getElementById("myTable").getElementsByTagName("td");
+    						x[0].style.backgroundColor = "#F5F5F5";
+								x[1].style.backgroundColor = "#F5F5F5";
+								x[2].style.backgroundColor = "#F5F5F5";
+								x[3].style.backgroundColor = "#F5F5F5";
+								x[4].style.backgroundColor = "#F5F5F5";
+
+
+								var index = this.parentNode.parentNode.rowIndex
+								var table = document.getElementById("myTable");
+	  				  	var row = table.[0];
+	  				    var cell1 = row[0];
+	  				  	cell1.color = "red";
+
+								}
+
+								if(active == true)
+								{
+								//	var x = document.getElementById("myTable").getElementsByTagName("td");
+	    //x[0].style.backgroundColor = "red";
+
+
+								}
+
+*/
+								</script>
+
+
+								<% } %>
+
         </table>
         <input type="button" value="Return" style="width:100px" class="returnButtonView" onclick="areYouSureReturn()">
-
+				<input class="keyInput" id="key" name="key" type="text">
     </form>
 
 </body>

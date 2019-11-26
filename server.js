@@ -22,7 +22,6 @@ app.use(bodyParser.urlencoded({ // to support URL-encoded bodies
 
 //var DATABASE_URL=$(heroku config:get DATABASE_URL -a dataflow-project) node
 
-
 //enabling css style sheet
 app.use(express.static(__dirname + '/public'));
 app.set('views', __dirname + '/public');
@@ -315,12 +314,56 @@ app.post('/login', function(req, res) {
              client.end();
              }
 
-
-
-
        return res.render("edit_selected_client.html",{client_info: compResults});
 
    });
+ });
+
+ app.post('/delete_client', function(req, res) {
+
+   var company_name = req.body.key;
+
+   var selectedCompany = company_name[0];
+
+   client = new Client({
+       user:config.db.user,
+       host:config.db.host,
+       database:config.db.database,
+       password:config.db.password,
+       port:config.db.port,
+       ssl:config.db.ssl
+     })
+
+     client.connect()
+
+     const deleteClient = 'DELETE FROM client_table WHERE company = $1'
+
+     client.query(deleteClient, [selectedCompany], function(err,compResults){
+
+       if (err)
+         {
+             console.log(err);
+             client.end();
+         }
+
+         else{}
+
+           client.query("SELECT * FROM client_table ORDER BY company", function(err, results) {
+
+             if (err)
+               {
+                  console.log(err);
+                  client.end();
+               }
+               else
+               {
+                   client.end();
+               }
+
+               return res.render("view_clients.html",{results: results});
+
+             });
+        });
  });
 
 app.post('/update_client', function(req, res) {
@@ -340,8 +383,10 @@ app.post('/update_client', function(req, res) {
  var clientId = req.body.key;
  var companyStatus_input = req.body.toggle;
  var companyStatus = false;
+
  //startDate_input = startDate_input.split("/").reverse().join("-");
  console.log(companyStatus_input);
+
  // checking if toggle switch is on or off
  if( companyStatus_input != "on" )
  {
@@ -353,9 +398,6 @@ app.post('/update_client', function(req, res) {
      companyStatus = true;
  }
 
- // reversing the date for postgreSQL
-
-
  const client = new Client({
      user:config.db.user,
      host:config.db.host,
@@ -364,7 +406,6 @@ app.post('/update_client', function(req, res) {
      port:config.db.port,
      ssl:config.db.ssl
  })
-
 
  client.connect()
 
@@ -379,14 +420,15 @@ app.post('/update_client', function(req, res) {
          console.log(err);
          client.end();
      }
+
      else{
          console.log(err,res);
          console.log("DATA was succesfully inputed into database ");//+ JSON.stringify(data) );
          client.end();
      }
  })
-     return res.render("pos.html");
 
+     return res.render("pos.html");
  });
 
  app.post('/view_clients', function(req, res) {
@@ -402,8 +444,6 @@ app.post('/update_client', function(req, res) {
 
      client.connect()
 
-
-
        client.query("SELECT * FROM client_table ORDER BY company", function(err, results) {
          if (err)
          {
@@ -414,16 +454,7 @@ app.post('/update_client', function(req, res) {
              client.end();
              }
 
-              //results.sort();
-              //var myarray=["Bob", "Bully", "Amy"];
-              //results.rows.company.sort();
-              //results.sortBy('company');
-               //Array now becomes ["Amy", "Bob", "Bully"]
-
-             //console.log(myarray);
-
        return res.render("view_clients.html",{results: results});
-
    });
  });
 
