@@ -17,6 +17,10 @@
     specific language governing permissions and limitations
     under the License.
 -->
+
+<!--
+    author: toririggs on github
+-->
 <html>
     <head>
         <!--
@@ -28,29 +32,10 @@
             * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
                 * Enable inline JS: add 'unsafe-inline' to default-src
         -->
-        <!-- FOR SOME REASON THESE META TAGS BELOW WERE MESSING UP THE SCRIPT TAGS?!?!?!?!?!-->
-       <!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
-        <meta name="format-detection" content="telephone=no">
-        <meta name="msapplication-tap-highlight" content="no">
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">-->
         <link rel="stylesheet" type="text/css" href="index.css">
         <title>Ticket Taker Beta</title>
     </head>
     <body>
-        <!--<div class="app">
-            <h1>Ticket Taker Beta</h1>
-            <div id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
-            </div>
-        </div>-->
-
-        <!--
-            NEXT STEPS: 
-            ITEM STUFF (BBLS AND YARDS) PAGE (pos6) ((just start with water)) (((just start with p that shows up with information entered after button pushed)))
-            REVIEW PAGE WITH NOTES ENTRY (pos7) ((let see review and enter notes based on review))
-            REVIEW PAGE NOTES NOW ADDED AND SIGNATURE AND SUBMIT (pos8) ((redirects to start ticket screen))
-        -->
         <div>
             <h1>Ticket Taker Beta</h1><h2 style='text-align:center;'>Materials</h2><br>
             <form id = 'form' style='text-align:center;' action='' method='POST' class = 'materials'>
@@ -76,9 +61,10 @@
             </form>
         </div>
         <script>
+            // if material is selected, change select items text for that material's specific types. also, change placeholder text to correct units on text field
             setInterval(changePlaceholder, 100);
 
-            function changePlaceholder() { //EMAIL ABOUT OTHER
+            function changePlaceholder() { 
                 var material = document.getElementById('material')
                 var mat = material.options[material.selectedIndex].text;
                 switch(mat) {
@@ -106,15 +92,20 @@
                 }
             }
 
+            // check to make sure info entered in text field is a number
             function isNumber(){
                 var isNum = document.getElementById('text').value;
                 if (isNaN(isNum)) alert("You need to enter a number. Please enter a number and try again.");
                 else addBlock();
             }
 
+            // add a block with the material type, the specific type, and the amount of that material
             function addBlock(){
+                // get material selector's info
                 var type = document.getElementById('material');
+                // get the specific text that the user sees
                 var typeVal = type.options[type.selectedIndex].text;
+                // place that info into an invisible text field for POST submission later
                 document.getElementById('mat').value=typeVal;
                 var sel = document.getElementById('select');
                 var selVal = sel.options[sel.selectedIndex].text;
@@ -122,11 +113,14 @@
                 var txt = document.getElementById('text').value;
                 document.getElementById('matNum').value=txt;
                 var block = document.getElementById('totals');
+                // if nothing is empty/default, display block with information
                 if (selVal != 'Select' && typeVal != 'Select' && txt != '') {block.innerHTML= " " + typeVal + " | " + selVal + " | " + txt + " "; document.getElementById('next').style.backgroundColor="rgb(51, 204, 51)"}
                 block.style.backgroundColor="black";
                 block.style.color="white";
             };
 
+
+            // if a block exists POST
             function checkSelected(){
                 var tot = document.getElementById('totals').innerHTML;
                 if (tot == '0') 

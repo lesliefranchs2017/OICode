@@ -17,7 +17,12 @@
     specific language governing permissions and limitations
     under the License.
 -->
+
+<!--
+    author: toririggs on github
+-->
 <html>
+    <!-- same as pos3.html but with two text fields -->
     <head>
         <!--
         Customize this policy to fit your own app's needs. For more guidance, see:
@@ -28,22 +33,10 @@
             * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
                 * Enable inline JS: add 'unsafe-inline' to default-src
         -->
-        <!-- FOR SOME REASON THESE META TAGS BELOW WERE MESSING UP THE SCRIPT TAGS?!?!?!?!?!-->
-       <!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
-        <meta name="format-detection" content="telephone=no">
-        <meta name="msapplication-tap-highlight" content="no">
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">-->
         <link rel="stylesheet" type="text/css" href="index.css">
         <title>Ticket Taker Beta</title>
     </head>
     <body>
-        <!--<div class="app">
-            <h1>Ticket Taker Beta</h1>
-            <div id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
-            </div>
-        </div>-->
         <div>
             <h1>Ticket Taker Beta</h1><h2 style='text-align:center;'>Truck Number</h2>
             <form id = 'form' style='text-align:center;' action='' method='POST'>
@@ -65,8 +58,7 @@
             function checkFilled(){
                 if (document.getElementById('text').value == '' || document.getElementById('text2').value == '') 
                 {
-                    /*alert is a placeholder for future pop-up that will be more noticable
-                    idea - include company logos in addition to titles because workers may recognize better*/
+                    /*alert is a placeholder for future pop-up that will be more noticable*/
                     alert("You must enter both the truck and trailer number before moving on.");
                     document.getElementById('form').action = './pos3';
                     document.getElementById('form').submit();

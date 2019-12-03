@@ -17,6 +17,10 @@
     specific language governing permissions and limitations
     under the License.
 -->
+
+<!--
+    author: toririggs on github
+-->
 <html>
     <head>
         <!--
@@ -28,36 +32,18 @@
             * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
                 * Enable inline JS: add 'unsafe-inline' to default-src
         -->
-        <!-- FOR SOME REASON THESE META TAGS BELOW WERE MESSING UP THE SCRIPT TAGS?!?!?!?!?!-->
-       <!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
-        <meta name="format-detection" content="telephone=no">
-        <meta name="msapplication-tap-highlight" content="no">
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">-->
         <script src="../server.js"></script>
         <script>POS1Loaded();</script>
         <link rel="stylesheet" type="text/css" href="index.css">
         <title>Ticket Taker Beta</title>
     </head>
     <body onload = 'getCompanies()'>
-        <!--<div class="app">
-            <h1>Ticket Taker Beta</h1>
-            <div id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
-            </div>
-        </div>-->
+
         <div>
             <h1>Ticket Taker Beta</h1><h2 style='text-align:center;'>Select Gas Company</h2><br>
             <form id = 'form' style='text-align:center;' action='' method='POST'>
                 <input type='text' placeholder='Search' id='text'> <br><br>
                 <span id = 'buttonsHere'>
-                <!--<input type='button' class='btn' id='s1' value="A Sample Company" onclick='changeColor(this)'>
-                <input type='button' class='btn' id='s2' value="Bob's Sample Company" onclick='changeColor(this)'>
-                <input type='button' class='btn' id='s3' value="Ben's Sample Company" onclick='changeColor(this)'>
-                <input type='button' class='btn' id='s4' value="Bobby's Sample Company" onclick='changeColor(this)'>
-                <input type='button' class='btn' id='s5' value="Cool Sample Company" onclick='changeColor(this)'>
-                <input type='button' class='btn' id='s6' value="Sample Company" onclick='changeColor(this)'>
-                <input type='button' class='btn' id='s7' value="Samplezz Company" onclick='changeColor(this)'>-->
                 </span>
 
                 <input type='text' id='gas' name='gas' style='visibility: hidden;'>
@@ -69,6 +55,7 @@
         <script>
             var buttonSize = 0;
 
+            // triggers get gas companies ajax function in server
             function getCompanies() {
                 $.ajax({
                     type: 'GET',
@@ -78,6 +65,7 @@
                 })
 
                 .done(function(result) {
+                    // display buttons
                     buttonSize = result.rows.length;
                     var allButtons = "";
                     var i;
@@ -94,12 +82,14 @@
                 });
             }
 
+            // if user types some info, string is searched for in available buttons, removes buttons that don't have that string
             setInterval(doIt, 100);
 
             function doIt() {
                 document.getElementById('text').addEventListener('keyup', changeButtons);
             }
 
+            
             function changeButtons() {
                 /*NEXT STEPS: clean this function! looks like loop part could use another function*/
                 var txt = document.getElementById('text').value;
@@ -128,8 +118,8 @@
                 }
             };
 
+            // change color of button when it is selected
             function changeColor(elmnt) {
-                /*next button shouldn't work when nothing is selected. should bring up an alert that asks to choose gas company.*/
                 var i = 0;
                 for (i; i<buttonSize; i++)
                 {
@@ -141,6 +131,7 @@
                 document.getElementById('next').style.backgroundColor = "#33cc33";
             };
 
+            // check if a button is selected. don't let the user move on if a button is not selected, POST if it is selected
             function checkSelected(){
                 var unSelected = 0;
                 var i = 0;
@@ -153,8 +144,7 @@
                 document.getElementById('testing').innerHTML= unSelected;
                 if (unSelected == (buttonSize-1)) 
                 {
-                    /*alert is a placeholder for future pop-up that will be more noticable
-                    idea - include company logos in addition to titles because workers may recognize better*/
+                    /*alert is a placeholder for future pop-up that will be more noticable*/
                     alert("You must select a gas company before moving on.");
                     document.getElementById('form').action = '';
                     location.reload();

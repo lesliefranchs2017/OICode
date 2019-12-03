@@ -17,6 +17,9 @@
     specific language governing permissions and limitations
     under the License.
 -->
+<!--
+    author: toririggs on github
+-->
 <html>
     <head>
         <!--
@@ -28,22 +31,10 @@
             * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
                 * Enable inline JS: add 'unsafe-inline' to default-src
         -->
-        <!-- FOR SOME REASON THESE META TAGS BELOW WERE MESSING UP THE SCRIPT TAGS?!?!?!?!?!-->
-       <!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
-        <meta name="format-detection" content="telephone=no">
-        <meta name="msapplication-tap-highlight" content="no">
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">-->
         <link rel="stylesheet" type="text/css" href="index.css">
         <title>Ticket Taker Beta</title>
     </head>
     <body>
-        <!--<div class="app">
-            <h1>Ticket Taker Beta</h1>
-            <div id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
-            </div>
-        </div>-->
         <div>
             <h1>Ticket Taker Beta</h1><h2 style='text-align:center;'>Driver Name</h2><br>
             <form id = 'form' style='text-align:center;' action='' method='POST'>
@@ -53,6 +44,7 @@
             <p id='testing'></p>
         </div>
         <script>
+            // if something is put in text, change the color of the next button
             setInterval(doIt, 100);
 
             function doIt(){
@@ -60,11 +52,11 @@
                 else document.getElementById('next').style.backgroundColor = "#33cc33";
             }
 
+            // if there is not an empty string in the text input field, move on. If there is, display and error and submit previous page's POST with null value
             function checkFilled(){
                 if (document.getElementById('text').value == '') 
                 {
-                    /*alert is a placeholder for future pop-up that will be more noticable
-                    idea - include company logos in addition to titles because workers may recognize better*/
+                    /*alert is a placeholder for future pop-up that will be more noticable*/
                     alert("You must enter your name before moving on.");
                     document.getElementById('form').action = './pos2';
                     document.getElementById('form').submit();
