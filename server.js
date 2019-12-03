@@ -550,158 +550,167 @@ app.post('/pos1' , function(req,res){
 app.post('/pos2' , function(req,res){
 
     var truckCo = req.body.truck;
+    if (truckCo == null) res.redirect('/pos3.html');
+    else {
 
-    const client = new Client({
-        user:config.db.user,
-        host:config.db.host,
-        database:config.db.database,
-        password:config.db.password,
-        port:config.db.port,
-        ssl:config.db.ssl
-    })
+        const client = new Client({
+            user:config.db.user,
+            host:config.db.host,
+            database:config.db.database,
+            password:config.db.password,
+            port:config.db.port,
+            ssl:config.db.ssl
+        })
 
 
-    client.connect()
+        client.connect()
 
-    const updateText = 'UPDATE ticket_table SET truck_company = $1 WHERE ticket_id = $2'
+        const updateText = 'UPDATE ticket_table SET truck_company = $1 WHERE ticket_id = $2'
 
-    client.query(updateText, [truckCo, newTicketID],(err,res)=>{
+        client.query(updateText, [truckCo, newTicketID],(err,res)=>{
 
-        if (err)
-        {
-            console.log(err);
-            client.end();
-            res.status(400).send(err);
-        }
-        else{
-            console.log(err,res);
-            console.log("DATA was succesfully inputed into database ");//+ JSON.stringify(data) );
-            client.end();
-        }
-    })
+            if (err)
+            {
+                console.log(err);
+                client.end();
+                res.status(400).send(err);
+            }
+            else{
+                console.log(err,res);
+                console.log("DATA was succesfully inputed into database ");//+ JSON.stringify(data) );
+                client.end();
+            }
+        })
 
-	res.set({
-		'Access-Control-Allow-Origin' : '*'
-	});
-	return res.redirect('/pos3.html');
+	    res.set({
+		    'Access-Control-Allow-Origin' : '*'
+	    });
+        return res.redirect('/pos3.html');
+    }
 });
 
 app.post('/pos3' , function(req,res){
 
     var driver = req.body.text;
+    if (driver == null) res.redirect('/pos4.html');
+    else {
+        const client = new Client({
+            user:config.db.user,
+            host:config.db.host,
+            database:config.db.database,
+            password:config.db.password,
+            port:config.db.port,
+            ssl:config.db.ssl
+        })
 
-    const client = new Client({
-        user:config.db.user,
-        host:config.db.host,
-        database:config.db.database,
-        password:config.db.password,
-        port:config.db.port,
-        ssl:config.db.ssl
-    })
 
+        client.connect()
 
-    client.connect()
+        const updateText = 'UPDATE ticket_table SET driver_name = $1 WHERE ticket_id = $2'
 
-    const updateText = 'UPDATE ticket_table SET driver_name = $1 WHERE ticket_id = $2'
+        client.query(updateText, [driver, newTicketID],(err,res)=>{
 
-    client.query(updateText, [driver, newTicketID],(err,res)=>{
+            if (err)
+            {
+                console.log(err);
+                client.end();
+                res.status(400).send(err);
+            }
+            else{
+                console.log(err,res);
+                console.log("DATA was succesfully inputed into database ");//+ JSON.stringify(data) );
+                client.end();
+            }
+        })
 
-        if (err)
-        {
-            console.log(err);
-            client.end();
-            res.status(400).send(err);
-        }
-        else{
-            console.log(err,res);
-            console.log("DATA was succesfully inputed into database ");//+ JSON.stringify(data) );
-            client.end();
-        }
-    })
-
-	res.set({
-		'Access-Control-Allow-Origin' : '*'
-	});
-	return res.redirect('/pos4.html');
+	    res.set({
+		    'Access-Control-Allow-Origin' : '*'
+	    });
+        return res.redirect('/pos4.html');
+    }
 });
 
 app.post('/pos4' , function(req,res){
 
     var trucknum = req.body.text;
     var trailernum = req.body.text2;
+    if (trucknum == null || trailernum == null) res.redirect('/pos5.html');
+    else {
+        const client = new Client({
+            user:config.db.user,
+            host:config.db.host,
+            database:config.db.database,
+            password:config.db.password,
+            port:config.db.port,
+            ssl:config.db.ssl
+        })
 
-    const client = new Client({
-        user:config.db.user,
-        host:config.db.host,
-        database:config.db.database,
-        password:config.db.password,
-        port:config.db.port,
-        ssl:config.db.ssl
-    })
 
+        client.connect()
 
-    client.connect()
+        const updateText = 'UPDATE ticket_table SET truck_number = $1, trailer_number = $2 WHERE ticket_id = $3'
 
-    const updateText = 'UPDATE ticket_table SET truck_number = $1, trailer_number = $2 WHERE ticket_id = $3'
+        client.query(updateText, [trucknum, trailernum, newTicketID],(err,res)=>{
 
-    client.query(updateText, [trucknum, trailernum, newTicketID],(err,res)=>{
+            if (err)
+            {
+                console.log(err);
+                client.end();
+                res.status(400).send(err);
+            }
+            else{
+                console.log(err,res);
+                console.log("DATA was succesfully inputed into database ");//+ JSON.stringify(data) );
+                client.end();
+            }
+        })
 
-        if (err)
-        {
-            console.log(err);
-            client.end();
-            res.status(400).send(err);
-        }
-        else{
-            console.log(err,res);
-            console.log("DATA was succesfully inputed into database ");//+ JSON.stringify(data) );
-            client.end();
-        }
-    })
-
-	res.set({
-		'Access-Control-Allow-Origin' : '*'
-	});
-	return res.redirect('/pos5.html');
+	    res.set({
+		    'Access-Control-Allow-Origin' : '*'
+	    });
+        return res.redirect('/pos5.html');
+    }
 });
 
 app.post('/pos5' , function(req,res){
 
     var loc = req.body.text;
+    if (loc == null) res.redirect('/pos6.html');
+    else {
+        const client = new Client({
+            user:config.db.user,
+            host:config.db.host,
+            database:config.db.database,
+            password:config.db.password,
+            port:config.db.port,
+            ssl:config.db.ssl
+        })
 
-    const client = new Client({
-        user:config.db.user,
-        host:config.db.host,
-        database:config.db.database,
-        password:config.db.password,
-        port:config.db.port,
-        ssl:config.db.ssl
-    })
 
+        client.connect()
 
-    client.connect()
+        const updateText = 'UPDATE ticket_table SET material_location = $1 WHERE ticket_id = $2'
 
-    const updateText = 'UPDATE ticket_table SET material_location = $1 WHERE ticket_id = $2'
+        client.query(updateText, [loc, newTicketID],(err,res)=>{
 
-    client.query(updateText, [loc, newTicketID],(err,res)=>{
+            if (err)
+            {
+                console.log(err);
+                client.end();
+                res.status(400).send(err);
+            }
+            else{
+                console.log(err,res);
+                console.log("DATA was succesfully inputed into database ");//+ JSON.stringify(data) );
+                client.end();
+            }
+        })
 
-        if (err)
-        {
-            console.log(err);
-            client.end();
-            res.status(400).send(err);
-        }
-        else{
-            console.log(err,res);
-            console.log("DATA was succesfully inputed into database ");//+ JSON.stringify(data) );
-            client.end();
-        }
-    })
-
-	res.set({
-		'Access-Control-Allow-Origin' : '*'
-	});
-	return res.redirect('/pos6.html');
+	    res.set({
+		    'Access-Control-Allow-Origin' : '*'
+	    });
+        return res.redirect('/pos6.html');
+    }
 });
 
 app.post('/pos6' , function(req,res){ // currently does not demand numeric values only, resulting in termination of server if string entered. FIX HERE
@@ -760,40 +769,42 @@ app.post('/pos6' , function(req,res){ // currently does not demand numeric value
 app.post('/pos7' , function(req,res){
 
     var notes = req.body.text;
+    if (notes == null) res.redirect('/pos8.html');
+    else {
+        const client = new Client({
+            user:config.db.user,
+            host:config.db.host,
+            database:config.db.database,
+            password:config.db.password,
+            port:config.db.port,
+            ssl:config.db.ssl
+        })
 
-    const client = new Client({
-        user:config.db.user,
-        host:config.db.host,
-        database:config.db.database,
-        password:config.db.password,
-        port:config.db.port,
-        ssl:config.db.ssl
-    })
 
+        client.connect()
 
-    client.connect()
+        const updateText = 'UPDATE ticket_table SET ticket_notes = $1 WHERE ticket_id = $2'
 
-    const updateText = 'UPDATE ticket_table SET ticket_notes = $1 WHERE ticket_id = $2'
+        client.query(updateText, [notes, newTicketID],(err,res)=>{
 
-    client.query(updateText, [notes, newTicketID],(err,res)=>{
+            if (err)
+            {
+                console.log(err);
+                client.end();
+                res.status(400).send(err);
+            }
+            else{
+                console.log(err,res);
+                console.log("DATA was succesfully inputed into database ");//+ JSON.stringify(data) );
+                client.end();
+            }
+        })
 
-        if (err)
-        {
-            console.log(err);
-            client.end();
-            res.status(400).send(err);
-        }
-        else{
-            console.log(err,res);
-            console.log("DATA was succesfully inputed into database ");//+ JSON.stringify(data) );
-            client.end();
-        }
-    })
-
-	res.set({
-		'Access-Control-Allow-Origin' : '*'
-	});
-	return res.redirect('/pos8.html');
+	    res.set({
+		    'Access-Control-Allow-Origin' : '*'
+	    });
+        return res.redirect('/pos8.html');
+    }
 });
 
 app.post('/pos8' , function(req,res){
@@ -806,7 +817,6 @@ app.post('/pos8' , function(req,res){
     if (day < 10) day = "0" + day;
     var today = year + "-" + month + "-" + day;
     today = today.split("/").reverse().join("-");
-    console.log("here is the signature and the date: ", signature, today)
 
     const client = new Client({
         user:config.db.user,
@@ -883,7 +893,6 @@ app.post('/pos8' , function(req,res){
                     wetamnt = result.rows[0].wet_total;
                     notes = result.rows[0].ticket_notes;
                     dsig = result.rows[0].signature;
-                    console.log("now the dsig or submitted signature info is: ", dsig);
                     filename = "Ticket #" + newTicketID + ".pdf";
 
                     if (wattype == "" && watamnt == 0) watertotal = "n/a";

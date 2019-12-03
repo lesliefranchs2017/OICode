@@ -132,7 +132,8 @@
             function submitSig() {
                 if (signaturePad.isEmpty()) {
                     alert("Please provide a signature first.");
-                    document.getElementById('form').action='';
+                    document.getElementById('form').action='./pos7';
+                    document.getElementById('form').submit();
                 } else {
                     var dataURL = signaturePad.toDataURL();
                     document.getElementById('sig').value = dataURL;

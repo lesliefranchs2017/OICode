@@ -133,8 +133,8 @@
                 {
                     /*alert is a placeholder for future pop-up that will be more noticable*/
                     alert("You must input the materials information before moving on.");
-                    document.getElementById('form').action = '';
-                    location.reload();
+                    document.getElementById('form').action = './pos5';
+                    document.getElementById('form').submit();
                 }
                 else document.getElementById('form').action = './pos6';
             };

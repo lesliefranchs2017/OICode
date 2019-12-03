@@ -68,8 +68,8 @@
                     /*alert is a placeholder for future pop-up that will be more noticable
                     idea - include company logos in addition to titles because workers may recognize better*/
                     alert("You must enter both the truck and trailer number before moving on.");
-                    document.getElementById('form').action = '';
-                    location.reload();
+                    document.getElementById('form').action = './pos3';
+                    document.getElementById('form').submit();
                 }
                 else document.getElementById('form').action = './pos4';
             };

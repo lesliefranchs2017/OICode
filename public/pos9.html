@@ -49,15 +49,13 @@
         <!-- two divs blocks next to eachother to fit everything on one screen (review on left, notes and next on right) -->
         <div style='display:block;'><h1>Ticket Taker Beta</h1></div>
         <div>
-            <br><br><br><h1>Your ticket has been completed.</h1>
-            <h2>You will be redirected to the Ticketing System Index in <span id='time'>10</span></h2>
+            <br><br><br><h1 style='color:red;'><b>Your ticket has been completed.</b></h1>
         </div>
         <script>
             var time = 9;
             setInterval(Timer, 1000);
 
             function Timer() {
-                document.getElementById('time').innerHTML = time;
                 time--;
                 if (time == 0) location.replace("./pos.html");
             }
