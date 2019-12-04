@@ -10,14 +10,17 @@
 <body>
   <div class="wrapMain">
 <div class="main_page">
+  <form action='' method='post'>
 
-  <input type="submit" id="pos"  name="pos" value="POS" onclick="location.href='home.html';" /><br>
-  <input type="submit" id="tickets"  name="tickets" value="Tickets"  /><br>
-  <input type="submit" id="submitDetails"  name="submitDetails" value="Clients" onclick="location.href='client.html';" /><br>
-  <input type="submit" id="truck_companies"  name="truck_companies" value="Trucking Companies"  /><br>
-  <input type="submit" id="emp"  name="emp" value="Employees"  /><br><br><br><br><br>
-  <input type="submit" id="profile"  name="profile" value="Profile"  /><br>
-  <input type="submit" id="logout"  name="logout" value="Logout"  /><br>
+  <input type="button" id="pos"  name="pos" value="POS" onclick="location.href='home.html';" /><br>
+  <input type="button" id="tickets"  name="tickets" value="Tickets"  /><br>
+  <input type="submit" id="submitDetails" formaction="/view_clients" name="submitDetails" value="Clients" /><br>
+  <input type="button" id="truck_companies"  name="truck_companies" value="Trucking Companies"  /><br>
+  <input type="button" id="emp"  name="emp" value="Employees"  /><br><br><br><br><br>
+  <input type="button" id="profile"  name="profile" value="Profile"  /><br>
+  <input type="button" id="logout"  name="logout" value="Logout"  /><br>
+
+</form>
 </div>
     <P>Note: POS- tablet application for truck drivers to fill out tickets</p>
     <P>Note: Tickets- where tickets can be viewed, edited and reports ran </p>

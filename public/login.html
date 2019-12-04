@@ -1,8 +1,32 @@
 <!DOCTYPE html>
+
+<!-- Author: Andrew Gaines
+     Description: form that promts user for a login email and password -->
+
 <html lang="en">
 	<head>
 		<title> Signup Form </title>
 		<link rel="stylesheet" type="text/css" href="style.css">
+
+		<script>
+			function checkLogin()
+			{
+				var t = true;
+				var f = false;
+				var none = "none";
+				if(<%=success%> == t)
+				{
+					window.location.href="login_pin.html";
+				}
+				if(<%=success%> == f)
+				{
+					alert("Login denied, incorrect credentials. Please try again.");
+				}
+				if(<%=success%> == none){}
+				else{}
+			}
+			</script>
+			
 	</head>
 	<body class="myBody">
 		<div class="login-page">
@@ -14,24 +38,8 @@
 		      <p class="message">Not registered? <a href="#">Create an account</a></p>
 		      <p class="message">Forgot password? <a href="#">Retrieve password</a></p>
 		    </form>
-			<script>
-				function checkLogin()
-				{
-					var t = true;
-					var f = false;
-					var none = "none";
-					if(<%=success%> == t)
-					{
-						window.location.href="login_pin.html";
-					}
-					if(<%=success%> == f)
-					{
-						alert("Login denied, incorrect credentials. Please try again.");
-					}
-					if(<%=success%> == none){}
-					else{}
-				}
-				</script>
+
+
 				   <script type="text/javascript">
     					window.onload = function(){
       					setTimeout(()=>{

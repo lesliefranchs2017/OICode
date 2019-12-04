@@ -1,4 +1,8 @@
 <!DOCTYPE html>
+
+<!-- Author: Andrew Gaines
+     Description: form that promts user for pin number -->
+
 <html lang="en">
   <head>
     <link rel="stylesheet" type="text/css" href="style.css">
@@ -50,6 +54,7 @@ if( totalAttempts == 3)
    clearPad()
 }
 }
+
 function message()
 {
   alert("login successfull, please enter your pin.");
@@ -84,6 +89,8 @@ function message()
 
   </div>
   <script type="text/javascript">
+
+  // script that times out for page to load before displaying message
 	window.onload = function(){
 	setTimeout(()=>{
     	message();
