@@ -1,12 +1,16 @@
 # SE-WM
 Software-Engineering-Waste-Management Application
 
+Contact information:
+Andrew - againes@mavs.coloradomesa.edu, GainesAndrew on github
+Angelo - Ajadams3@mavs.coloradomesa.edu, Ajadams3 on github
+Tori - vlriggs@mavs.coloradomesa.edu, toririggs on github
+
+Client contact: Paul at paul.roethel@gmail.com
+
 Contract: 
 https://github.com/Ajadams3/SE-WM/blob/master/contract.pdf
 
 SE-WM folder contains the cordova app with browser and ios support
 
-HTML, CSS, JavaScript for browser end:
-https://github.com/Ajadams3/SE-WM/tree/master/SE-WM/platforms/browser/www
-HTML, CSS, JavaScript for ios app end:
-https://github.com/Ajadams3/SE-WM/tree/master/SE-WM/platforms/ios/www
+DashBoard is the current working branch
