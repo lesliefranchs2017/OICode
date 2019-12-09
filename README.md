@@ -14,3 +14,5 @@ https://github.com/Ajadams3/SE-WM/blob/master/contract.pdf
 SE-WM folder contains the cordova app with browser and ios support
 
 DashBoard is the current working branch
+
+Andrew Gaines was the main student that pushed to maste so coloarbotive effort in insights is not accurate
