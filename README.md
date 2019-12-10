@@ -15,4 +15,4 @@ SE-WM folder contains the cordova app with browser and ios support
 
 DashBoard is the current working branch
 
-Andrew Gaines was the main student that pushed to maste so coloarbotive effort in insights is not accurate
+Andrew Gaines was the main student that pushed to master so collaborative effort in insights is not accurate
